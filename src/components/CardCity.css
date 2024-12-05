@@ -1,0 +1,118 @@
+/* Contenedor principal */
+.show-weather-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  flex-grow: 2;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* Tarjeta */
+.card-weather {
+  width: 100%;
+}
+
+/* Encabezado de la tarjeta */
+.card-header-weather {
+  margin-left: 40px;
+  font-size: 30px;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+/* Título del encabezado */
+.card-header-title {
+  margin: 0;
+}
+
+/* Contenedor del icono y temperatura */
+.weather-icon-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-right: 100px;
+}
+
+/* Icono del clima */
+.weather-icon {
+  height: 200px;
+  width: 200px;
+}
+
+/* Temperatura */
+.weather-temp {
+  font-size: 50px;
+  font-weight: bold;
+  margin: 0;
+}
+
+/* Tabla */
+.weather-table {
+  width: 100%;
+}
+
+.weather-table-header {
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.weather-table-cell {
+  font-size: 23px;
+}
+
+.weather-table-cell-bold {
+  font-size: 23px;
+  font-weight: bold;
+}
+
+
+
+
+.loading-message h2, .error-message h2 {
+  font-size: 1.8rem;
+  padding: 15px 20px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+/* Estilos para dispositivos móviles */
+@media (max-width: 768px) {
+  .card-header-weather {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    font-size: 20px;
+    margin-left: 0;
+  }
+
+  .card-header-title {
+    font-size: 18px;
+  }
+
+  .weather-icon-container {
+    margin-right: 0;
+  }
+
+  .weather-icon {
+    height: 50px;
+    width: 50px;
+  }
+
+  .weather-temp {
+    font-size: 20px;
+  }
+
+  .weather-table-header {
+    font-size: 18px;
+  }
+
+  .weather-table-cell,
+  .weather-table-cell-bold {
+    font-size: 16px;
+  }
+}

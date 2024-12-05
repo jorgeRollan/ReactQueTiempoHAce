@@ -1,0 +1,64 @@
+/* Estilos para el contenedor principal */
+.mainPanel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    min-height: 78vh;
+    box-sizing: border-box;
+    padding: 15px;
+
+    /* Background image styles */
+    background-image: url('/src/assets/clouds_sky_dawn_131441_3840x2400.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: #ffffff;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Estilos para la disposición en dos columnas */
+.panel-card {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 1.rem;
+    width: 100%;
+}
+
+/* Columna izquierda para la tarjeta del clima */
+.left-panel {
+    display: flex;
+    flex-grow: 2;
+    flex-direction: column;
+    padding-left: 10px;
+    padding-bottom: 10px;
+}
+
+/* Columna derecha para el mapa y el botón */
+.right-panel {
+    width: 370px;
+    height: 730px;
+    display: flex;
+    margin-right: 100px;
+    flex-direction: column;
+    align-items: flex-end;
+    padding-left: 50px;
+    padding-top: 150px;
+    padding-bottom: 150px;
+}
+
+
+
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 768px) {
+    .button-div {
+        display: flex;
+        flex-direction: column;
+    }
+    .left-panel {
+        max-width: 100%;
+        align-items: center;
+        height: 50%;
+    }
+}

@@ -1,0 +1,81 @@
+/* Container for the whole map */
+.map-container {
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  z-index: 0;
+}
+
+/* Title style */
+.map-container h1 {
+  font-size: 24px;
+  color: white;
+  margin-bottom: 20px;
+}
+
+/* Layer buttons container */
+.layer-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+/* Button style for each layer */
+.layer-buttons button {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  background-color: #1E88E5;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Hover effect for buttons */
+.layer-buttons button:hover {
+  background-color: #1565C0;
+}
+
+/* Map container style (refactored from inline styles) */
+.map-container-map {
+  height: 600px;
+  width: 900px;
+}
+
+/* Responsive style for mobile devices */
+@media (max-width: 768px) {
+  .map-container-map {
+      height: 400px;
+      width: 100%;
+  }
+
+  .layer-buttons {
+      flex-direction: column;
+      align-items: center;
+  }
+
+  .layer-buttons button {
+      margin-bottom: 10px;
+  }
+  /* Adjusting the attribution control size */
+.leaflet-control-attribution {
+    display:none; /* Adjust the line height to avoid text overlap */
+}
+
+/* Adjust the attribution image size (e.g., flag images) */
+.leaflet-control-attribution img {
+  width: 16px; /* Adjust the size of any images (like flags) in the attribution */
+  height: auto;
+  vertical-align: middle; /* Align the image with text */
+}
+
+/* Optional: Hide Ukrainian flag or any specific attribution image */
+.leaflet-control-attribution img[src*="ukraine"] {
+  display: none; /* This hides the Ukrainian flag if it's visible */
+}
+
+}

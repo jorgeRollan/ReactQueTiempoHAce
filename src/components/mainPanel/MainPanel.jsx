@@ -87,7 +87,9 @@ export default function MainPanel() {
             )}
 
             {typePanel === 4 && (
-                <LayersMap />
+                <MainPanelContext.Provider value={{ login }}>
+                    <LayersMap />
+                </MainPanelContext.Provider>
             )}
 
             {typePanel === 6 && (

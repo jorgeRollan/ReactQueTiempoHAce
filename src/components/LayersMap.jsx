@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { MapContainer, TileLayer } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import './LayersMap.css';
 import CountrySearch from './CountrySearch'; // Importamos CountrySearch
 import FetchCountryLocation from '../api/FetchCountryLocation';
+import { MainPanelContext } from '../context/Contexts';
 
 const LayersMap = () => {
     const [layer, setLayer] = useState('temp');
@@ -11,6 +12,8 @@ const LayersMap = () => {
     const [coordinates, setCoordinates] = useState([40.4168, -3.7038]); // Para el país seleccionado
     const [mapKey, setMapKey] = useState(Date.now());
     const apiId = import.meta.env.VITE_OPENWEATHER_API_KEY;
+
+    const { login } = useContext(MainPanelContext);
 
     const getLayerUrl = (layerType) =>
         `https://tile.openweathermap.org/map/${layerType}_new/{z}/{x}/{y}.png?appid=${apiId}`;
@@ -63,10 +66,11 @@ const LayersMap = () => {
         <div className="map-container">
             <h1>Mapa de {selectedCountry ? selectedCountry.nombre : "España"}</h1>
 
-            <div className="search-country">
-                <CountrySearch onSelectCountry={handleCountrySelect} />
-            </div>
-
+            {login &&
+                <div className="search-country">
+                    <CountrySearch onSelectCountry={handleCountrySelect} />
+                </div>
+            }
             <div className="layer-buttons">
                 {Object.keys(spanishLayerNames).map((key) => (
                     <button key={key} onClick={() => handleLayerChange(key)}>

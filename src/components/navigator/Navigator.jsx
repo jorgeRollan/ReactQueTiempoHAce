@@ -135,7 +135,7 @@ export default function Navigator() {
           )}
         </>
       ) : (
-        <NavbarContent maxWidth="full" className="px-1" style={{ display: "flex", flexWrap: "wrap", justifyContent: "flex-start", alignItems: "center", gap: "10px" }}>
+        <NavbarContent className="px-1" style={{ display: "flex", flexWrap: "wrap", justifyContent: "flex-start", alignItems: "center", gap: "10px" }}>
           <NavbarItem>
             <Link
               variant="solid"

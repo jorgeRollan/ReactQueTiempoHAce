@@ -1,13 +1,24 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Input, Button } from "@nextui-org/react";
 import FetchLogin from '../../api/FetchLogin';
 import { LoginContext } from '../../context/Contexts';
 import FetchCiudades from '../../api/FetchCiudades';
 import './Register.css';
 
+// Function to dynamically load the reCAPTCHA script
+const LoadReCaptcha = () => {
+    useEffect(() => {
+        const script = document.createElement('script');
+        script.src = "https://www.google.com/recaptcha/api.js";
+        script.async = true;
+        script.defer = true;
+        document.body.appendChild(script);
+    }, []);
+};
+
 const Login = () => {
     const appUrl = import.meta.env.VITE_APP_URL;
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const { setTypePanel, setLogin, setSelectCities, setSelectCity } = useContext(LoginContext);
     const [formData, setFormData] = useState({
         email: '',
@@ -16,6 +27,12 @@ const Login = () => {
     const [error, setError] = useState(null);
     const [remember, setRemember] = useState(false);
     const [successMessage, setSuccessMessage] = useState('');
+
+    // Token state for reCAPTCHA
+    const [captchaToken, setCaptchaToken] = useState('');
+
+    // Load reCAPTCHA script when the component mounts
+    LoadReCaptcha();
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -30,7 +47,7 @@ const Login = () => {
             setSelectCities(newCities);
             setSelectCity(null);
         }
-    }
+    };
 
     const handleRememberChange = () => {
         setRemember(!remember);
@@ -41,19 +58,33 @@ const Login = () => {
         setLoading(true);
         setError(null);
         setSuccessMessage('');
-
-        const result = await FetchLogin(formData);
-
+    
+        // Verify reCAPTCHA
+        const token = window.grecaptcha?.getResponse();
+        if (!token) {
+            setError('Por favor completa el CAPTCHA.');
+            setLoading(false);
+            return;
+        }
+    
+        setCaptchaToken(token); // Store token if needed later
+    
+        const loginData = {
+            ...formData,
+            recaptcha_token: token, // Send the CAPTCHA token here
+        };
+    
+        const result = await FetchLogin(loginData);
+    
         if (result.success) {
             setSuccessMessage(result.message);
             setLogin(result.data.user);
             FetchCiudades(`${appUrl}:8000/ciudades`, "GET", null, handleFetchCiudades);
-            setLoading(false)
             setTypePanel(1);
         } else {
             setError(result.message);
-            setLoading(false)
         }
+        setLoading(false);
     };
 
     return (
@@ -89,7 +120,7 @@ const Login = () => {
 
                 <div>
                     <label>
-                        <input
+                        <Input
                             type="checkbox"
                             checked={remember}
                             onChange={handleRememberChange}
@@ -97,8 +128,16 @@ const Login = () => {
                         Mantener sesión
                     </label>
                 </div>
-                <Button type="submit">Iniciar Sesión</Button>
+
+                <Button type="submit" disabled={loading}>
+                    {loading ? "Cargando..." : "Iniciar Sesión"}
+                </Button>
             </form>
+
+            <div className="form-control">
+                <div className="g-recaptcha" data-sitekey="6LfS3oYqAAAAADZF_cH86SxbGlShbNnJKLdxx6eS"></div>
+                <div className="text-danger" id="recaptchaError"></div>
+            </div>
         </div>
     );
 };

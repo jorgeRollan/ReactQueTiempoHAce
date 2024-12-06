@@ -1,7 +1,9 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useRef, useEffect } from 'react';
 import { MapContainer, TileLayer } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import './LayersMap.css';
+import 'leaflet-fullscreen/dist/Leaflet.fullscreen.js';
+import 'leaflet-fullscreen/dist/leaflet.fullscreen.css';
 import CountrySearch from './CountrySearch'; // Importamos CountrySearch
 import FetchCountryLocation from '../api/FetchCountryLocation';
 import { MainPanelContext } from '../context/Contexts';
@@ -9,9 +11,20 @@ import { MainPanelContext } from '../context/Contexts';
 const LayersMap = () => {
     const [layer, setLayer] = useState('temp');
     const [selectedCountry, setSelectedCountry] = useState(null);
-    const [coordinates, setCoordinates] = useState([40.4168, -3.7038]); // Para el país seleccionado
+    const [coordinates, setCoordinates] = useState([40.4168, -3.7038]);
     const [mapKey, setMapKey] = useState(Date.now());
     const apiId = import.meta.env.VITE_OPENWEATHER_API_KEY;
+
+    const mapRef = useRef(null);
+
+    useEffect(() => {
+      if (!mapRef.current) return;
+      mapRef.current.addControl(new L.Control.Fullscreen());
+  
+      return () => {
+        mapRef.current.removeControl(new L.Control.Fullscreen());
+      };
+    }, [mapRef]);
 
     const { login } = useContext(MainPanelContext);
 
@@ -84,6 +97,7 @@ const LayersMap = () => {
                 center={coordinates}
                 zoom={6}
                 className="map-container-map"
+                fullscreenControl={true}
             >
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

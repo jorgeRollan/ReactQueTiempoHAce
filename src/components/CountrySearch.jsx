@@ -18,7 +18,6 @@ const CountrySearch = ({ onSelectCountry }) => {
         country.name.toLowerCase().includes(value.toLowerCase()) || country.nombre.toLowerCase().includes(value.toLowerCase())
       );
       setFilteredCountries(results);
-      console.log(results);
     } else {
       setFilteredCountries([]); // Vacía resultados si hay menos de 3 letras
     }
@@ -49,7 +48,7 @@ const CountrySearch = ({ onSelectCountry }) => {
             textValue={country.name}
             onClick={() => handleSelectCountry(country)}
           >
-            {country.name}
+            {`${country.nombre}  -  ${country.name}`}
           </ListboxItem>
         ))}
       </Listbox>

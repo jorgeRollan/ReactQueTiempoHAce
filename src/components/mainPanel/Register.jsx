@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import ReCAPTCHA from 'react-google-recaptcha';
 import { Input, Button } from "@nextui-org/react";
 import { RegisterContext } from '../../context/Contexts';
 import fetchRegister from '../../api/auth/fetchRegister';
@@ -7,6 +8,7 @@ import './Register.css';
 
 const Register = () => {
     const setTypePanel = useContext(RegisterContext);
+    const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -14,6 +16,7 @@ const Register = () => {
         password_confirmation: '',
     });
     const [error, setError] = useState(null);
+    const [captchaToken, setCaptchaToken] = useState(null);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -30,6 +33,8 @@ const Register = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError(null);
+        setLoading(true);
+        setError(null);
 
         const validationError = validateInputs(formData);
         if (validationError) {
@@ -37,13 +42,23 @@ const Register = () => {
             return;
         }
 
-        const result = await fetchRegister(formData);
+        if (!captchaToken) {
+            setError('Por favor completa el CAPTCHA.');
+            setLoading(false);
+            return;
+        }
+
+        const result = await fetchRegister({...formData, recaptcha_token: captchaToken});
         if (result.success) {
             window.alert("Registro exitoso");
             setTypePanel(7);
         } else {
             setError(result.message);
         }
+    };
+
+    const handleCaptchaChange = (token) => {
+        setCaptchaToken(token);
     };
 
     return (
@@ -90,8 +105,14 @@ const Register = () => {
                 </div>
 
                 {error && <p className="error-message">{error}</p>}
-
-                <Button type="submit">Registrar</Button>
+                <ReCAPTCHA
+                    style={{ marginBottom: "10px" }}
+                    sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
+                    onChange={handleCaptchaChange}
+                />
+                <Button type="submit" disabled={loading}>
+                    {loading ? "Cargando..." : "Registrar"}
+                </Button>
             </form>
         </div>
     );

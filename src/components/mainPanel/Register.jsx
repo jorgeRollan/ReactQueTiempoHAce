@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { Input, Button } from "@nextui-org/react";
 import { RegisterContext } from '../../context/Contexts';
-import FetchRegister from '../../api/FetchRegister';
+import fetchRegister from '../../api/auth/fetchRegister';
 import validateInputs from "./Validaciones";
 import './Register.css';
 
@@ -37,7 +37,7 @@ const Register = () => {
             return;
         }
 
-        const result = await FetchRegister(formData);
+        const result = await fetchRegister(formData);
         if (result.success) {
             window.alert("Registro exitoso");
             setTypePanel(7);

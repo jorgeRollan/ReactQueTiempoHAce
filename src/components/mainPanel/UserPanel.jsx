@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import FetchRemoveCity from "../../api/FetchRemoveCity";
+import fetchRemoveCity from "../../api/cities/removeCity";
 import {
   Card,
   CardHeader,
@@ -27,13 +27,14 @@ const UserPanel = () => {
     let formData = new FormData();
     if (selectedCity !== null) {
       formData.append('nameCity', selectedCity.name_city);
-      FetchRemoveCity(`${appUrl}:8000/deleteCiudad`, "POST", {}, formData, handleRemoveCity);
+      fetchRemoveCity(formData, handleRemoveCity);
     }
     else window.alert("Seleccione una ciudad a borrar")
   };
 
   const handleRemoveCity = (response) => {
     if (response.success === true) {
+      window.alert("Se ha eliminado la ciudad de favoritos");
       let updatedCities = selectCities.filter((city) => city.name_city !== selectedCity.name_city);
       setSelectCities(updatedCities);
       setSelectedCity(null);
@@ -57,11 +58,11 @@ const UserPanel = () => {
 
       {/* Body */}
       <CardBody>
-        <span b>Nombre de usuario:</span>
+        <span>Nombre de usuario:</span>
         <span>{login?.name || "N/A"}</span>
         <Spacer y={5.0} />
 
-        <span b>Correo de Usuario:</span>
+        <span>Correo de Usuario:</span>
         <span>{login?.email || "N/A"}</span>
         <Spacer y={5.0} />
         <Divider />

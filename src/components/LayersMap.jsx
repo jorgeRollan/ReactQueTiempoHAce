@@ -5,7 +5,7 @@ import './LayersMap.css';
 import 'leaflet-fullscreen/dist/Leaflet.fullscreen.js';
 import 'leaflet-fullscreen/dist/leaflet.fullscreen.css';
 import CountrySearch from './CountrySearch'; // Importamos CountrySearch
-import FetchCountryLocation from '../api/FetchCountryLocation';
+import fetchCountryLocation from '../api/locations/fetchCountryLocation';
 import { MainPanelContext } from '../context/Contexts';
 
 const LayersMap = () => {
@@ -18,12 +18,12 @@ const LayersMap = () => {
     const mapRef = useRef(null);
 
     useEffect(() => {
-      if (!mapRef.current) return;
-      mapRef.current.addControl(new L.Control.Fullscreen());
-  
-      return () => {
-        mapRef.current.removeControl(new L.Control.Fullscreen());
-      };
+        if (!mapRef.current) return;
+        mapRef.current.addControl(new L.Control.Fullscreen());
+
+        return () => {
+            mapRef.current.removeControl(new L.Control.Fullscreen());
+        };
     }, [mapRef]);
 
     const { login } = useContext(MainPanelContext);
@@ -53,26 +53,14 @@ const LayersMap = () => {
         setLayer(spanishLayerNames[selectedLayer]);
     };
 
+    const handleCountryLocation = (response) => {
+        setCoordinates([response.latitude, response.longitude]);
+        setMapKey(Date.now());
+    }
+
     const handleCountrySelect = (country) => {
         setSelectedCountry(country);
-        console.log("País seleccionado:", country);
-
-        // Aquí debes invocar la función FetchCountryLocation
-        const url = `http://localhost:8000/api/geoCountry?selectCity=${country.capital}&selectCountry=${country.code}`;
-        const method = 'GET';
-        const headers = {
-            'Content-Type': 'application/json',  // Agregar el encabezado correcto
-        };
-
-        // Llamada a la función FetchCountryLocation
-        FetchCountryLocation(url, method, headers, (data) => {
-            console.log('Pais cambiado', data);
-            if (data.latitude && data.longitude) {
-                setCoordinates([data.latitude, data.longitude]);
-                setMapKey(Date.now());
-            }
-            // Aquí puedes manejar los datos de las coordenadas (data.latitude, data.longitude)
-        });
+        fetchCountryLocation(country, handleCountryLocation);
     }
 
     return (

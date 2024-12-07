@@ -6,7 +6,6 @@ export const DataContext = createContext();
 export const SelectCityContext = createContext();
 export const UpbarContext = createContext();
 export const MapContext = createContext();
-export const Fetch30Context = createContext();
 export const Data30Context = createContext();
 export const MainPanelContext = createContext();
 export const NavBarContext = createContext();

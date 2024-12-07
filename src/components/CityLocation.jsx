@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import ShowWeather from "./ShowWeather";
 import { DataContext, MainPanelContext } from "../context/Contexts";
 import DataFallback from "./DataFallback";
-import FetchWeatherByCoordinates from "../api/FetchWeatherByCoordinates";
+import fetchWeatherByCoordinates from "../api/weather/fetchWeatherByCoordinates";
 import "./CityLocation.css";
 
 export default function CityLocation() {
@@ -32,12 +32,7 @@ export default function CityLocation() {
   useEffect(() => {
     setLoading(true);
     if (position) {
-      FetchWeatherByCoordinates(
-        position.coords.latitude,
-        position.coords.longitude,
-        units,
-        handleFetch
-      )
+      fetchWeatherByCoordinates(position.coords.latitude, position.coords.longitude, units, handleFetch)
     }
   }, [position, units]);
 

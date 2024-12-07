@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from "react";
-import FetchWeatherByCity from "../api/FetchWeatherByCity";
+import fetchWeatherByCity from "../api/weather/fetchWeatherByCity";
 import ShowWeather from "./ShowWeather";
 import Select from "./selectCities/Select";
 import { MainPanelContext, DataContext, FavCitiesContext } from '../context/Contexts';
@@ -19,7 +19,7 @@ export default function FavCities() {
   useEffect(() => {
     if (selectCity !== null) {
       setLoading(true);
-      FetchWeatherByCity(selectCity, handleFetch, units);
+      fetchWeatherByCity(selectCity, handleFetch, units);
     }
     else {
       setWeatherData(null);

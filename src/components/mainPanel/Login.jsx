@@ -1,9 +1,9 @@
 import React, { useState, useContext } from 'react';
 import ReCAPTCHA from 'react-google-recaptcha';
-import { Input, Button } from '@nextui-org/react';
+import { Input, Button, Checkbox } from '@nextui-org/react';
 import { LoginContext } from '../../context/Contexts';
-import FetchCiudades from '../../api/FetchCiudades';
-import FetchLogin from '../../api/FetchLogin';
+import fetchCities from '../../api/cities/fetchCities';
+import fetchLogin from '../../api/auth/fetchLogin';
 
 const Login = () => {
     const [error, setError] = useState(null);
@@ -18,14 +18,17 @@ const Login = () => {
     });
     const [captchaToken, setCaptchaToken] = useState(null);
 
-    const appUrl = import.meta.env.VITE_APP_URL;
-
     const handleFetchCiudades = (newCities) => {
         if (newCities.length > 0) {
             setSelectCities(newCities);
             setSelectCity(null);
         }
     };
+    const handleFetchCiudadesHistory = (newCities) => {
+        if (newCities.length > 0) {
+            setHistoryCities(newCities);
+        }
+    }
 
     const handleRememberChange = () => {
         setRemember(!remember);
@@ -40,7 +43,7 @@ const Login = () => {
     };
 
     const handleCaptchaChange = (token) => {
-        setCaptchaToken(token); // Guarda el token generado por reCAPTCHA
+        setCaptchaToken(token);
     };
 
     const handleSubmit = async (e) => {
@@ -54,23 +57,21 @@ const Login = () => {
             setLoading(false);
             return;
         }
-            const result = await FetchLogin({...formData,
-                recaptcha_token: captchaToken});
-            console.log(result)
-            if (result.success) {
-                // Login exitoso
-                console.log(result);  
-                setLogin(result.data.user); // Asigna los datos del usuario al contexto
-
-
-                // Cambia al panel de usuario
-                setTypePanel(1);
-                
-                setSuccessMessage(result.message);
-            } else {
-                // Error en el inicio de sesión
-                setError(result.message || 'Error al iniciar sesión.');
-            }
+        const result = await fetchLogin({
+            ...formData,
+            recaptcha_token: captchaToken
+        });
+        console.log(result)
+        if (result.success) {
+            fetchCities("favorites", handleFetchCiudades);
+            fetchCities("history", handleFetchCiudadesHistory);
+            setLogin(result.user);
+            setTypePanel(1);
+            setSuccessMessage(result.message);
+        } else {
+            // Error en el inicio de sesión
+            setError(result.message || 'Error al iniciar sesión.');
+        }
         setLoading(false);
     };
 
@@ -106,17 +107,20 @@ const Login = () => {
                 {error && <p style={{ color: 'red' }}>{error}</p>}
                 {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
 
-                <div>
-                    <label>
-                        <Input
-                            type="checkbox"
-                            checked={remember}
-                            onChange={handleRememberChange}
-                        />
+                
+                    <Checkbox
+                        size="sm"
+                        style={{ marginBottom: "10px", width: "100%" }}
+                        type="checkbox"
+                        label="Mantener sesión"
+                        checked={remember}
+                        onChange={handleRememberChange}
+                    >
                         Mantener sesión
-                    </label>
-                </div>
+                    </Checkbox>
+
                 <ReCAPTCHA
+                    style={{ marginBottom: "10px" }}
                     sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
                     onChange={handleCaptchaChange}
                 />

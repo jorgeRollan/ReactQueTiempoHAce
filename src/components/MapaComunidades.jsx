@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Button } from "@nextui-org/react";
 import DataFallback from "./DataFallback";
 import ShowWeather from "./ShowWeather";
-import FetchWeatherByCity from "../api/FetchWeatherByCity";
+import fetchWeatherByCity from "../api/weather/fetchWeatherByCity";
 import { DataContext, MainPanelContext } from "../context/Contexts";
 import { isMobile } from "react-device-detect";
 import "./MapaComunidades.css";
@@ -86,7 +86,7 @@ const MapaComunidades = () => {
 
     setCommunity(selectedCommunity);
     setLoading(true);
-    FetchWeatherByCity(
+    fetchWeatherByCity(
       selectedCommunity.city,
       (data) => handleFetch(data, selectedCommunity),
       units
@@ -95,7 +95,7 @@ const MapaComunidades = () => {
 
   useEffect(() => {
     if (community) {
-      FetchWeatherByCity(
+      fetchWeatherByCity(
         community.city,
         (data) => handleFetch(data, community),
         units

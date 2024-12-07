@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import ShowWeather from "./ShowWeather";
 import { DataContext, MainPanelContext } from "../context/Contexts";
-import FetchWeatherByCity from "../api/FetchWeatherByCity";
+import fetchWeatherByCity from "../api/weather/fetchWeatherByCity";
 import DataFallback from "./DataFallback";
 import './CardCity.css';
 
@@ -13,7 +13,7 @@ export default function CardCity() {
     if (searchCity) {
       setWeatherData(null);
       setLoading(true);
-      FetchWeatherByCity(searchCity, handleFetch, units).finally(() => setLoading(false));
+      fetchWeatherByCity(searchCity, handleFetch, units).finally(() => setLoading(false));
     }
   }, [searchCity, units]);
 

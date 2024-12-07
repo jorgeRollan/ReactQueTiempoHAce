@@ -2,7 +2,7 @@ import { useContext, useEffect } from "react";
 import { MainPanelContext } from "../context/Contexts";
 import { useState } from "react";
 import { Button } from "@nextui-org/button";
-import FetchInsertCity from "../api/FetchInsertCity";
+import fetchInsertCity from "../api/cities/insertCity";
 
 const SaveFavCity = () => {
     const appUrl = import.meta.env.VITE_APP_URL;
@@ -20,20 +20,20 @@ const SaveFavCity = () => {
 
     useEffect(() => {
         if (nameCity && nameLongCity) {
-            if(selectCities){
-            const isCityAlreadySaved = selectCities.some(city => city.nameLongCity === nameLongCity);
+            if (selectCities) {
+                const isCityAlreadySaved = selectCities.some(city => city.nameLongCity === nameLongCity);
 
-            if (isCityAlreadySaved) {
-                window.alert("La ciudad ya está en tus favoritas.");
-                return;
+                if (isCityAlreadySaved) {
+                    window.alert("La ciudad ya está en tus favoritas.");
+                    return;
+                }
             }
-        }
-            FetchInsertCity(`${appUrl}:8000/insertCiudad`, "POST", {}, { nameCity: nameCity, nameLongCity: nameLongCity }, handleFetchInsertCity);
+            fetchInsertCity({ nameCity: nameCity, nameLongCity: nameLongCity }, handleFetchInsertCity);
         }
     }, [nameCity, nameLongCity]);
 
-    const handleFetchInsertCity = (resultOp) => {
-        if (resultOp.success === true) {
+    const handleFetchInsertCity = (response) => {
+        if (response) {
             let updatedCities = [...(selectCities || []), { name_city: nameLongCity }]
             setSelectCities(updatedCities);
             window.alert(`Se ha guardado correctamente la ciudad ${nameLongCity}`);

@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react';
 import { DataContext } from '../../context/Contexts';
 import { isMobile as deviceIsMobile } from 'react-device-detect';
-import { Card, CardHeader, CardBody, CardFooter, Table, TableHeader, TableBody, TableRow, TableColumn, TableCell, Image } from "@nextui-org/react";
+import { Chip, Card, CardHeader, CardBody, CardFooter, Table, TableHeader, TableBody, TableRow, TableColumn, TableCell, Image } from "@nextui-org/react";
 
 
 // Componente para mostrar el tiempo actual de la ciudad mediante una tarjeta de nextui con una cabecera y una taabla
@@ -12,6 +12,25 @@ const ShowWeather = () => {
   const temperatureUnit = units === 'metric' ? '°C' : '°F';
   const speedUnit = units === 'metric' ? 'm/s' : 'mph';
 
+
+   // Función para determinar el tipo de color
+   const getTemperatureLabel = (temp, temperatureUnit) => {
+    if (temperatureUnit === "°C") {
+      if (temp <= 0) return "danger";  // Frío extremo
+      if (temp > 0 && temp <= 15) return "warning";  // Frío
+      if (temp > 15 && temp <= 25) return "success";  // Templado
+      if (temp > 25 && temp <= 35) return "warning";  // Cálido
+      if (temp > 35) return "danger";  // Calor extremo
+    } else {
+      // Si la unidad es Fahrenheit
+      if (temp <= 32) return "danger";  // Frío extremo
+      if (temp > 32 && temp <= 59) return "warning";  // Frío
+      if (temp > 59 && temp <= 77) return "success";  // Templado
+      if (temp > 77 && temp <= 95) return "warning";  // Cálido
+      if (temp > 95) return "danger";  // Calor extremo
+    }
+  };
+
   return (
     <div className="show-weather-container">
       <Card className="card-weather">
@@ -19,19 +38,21 @@ const ShowWeather = () => {
           <h1 className="card-header-title">{`Clima en ${name} (${country})`}</h1>
           <Card isFooterBlurred className={!isMobile ? ("w-full h-[200px] w-[200px] left-20 sm:col-span-5") : ("w-full h-[200px] w-[200px] sm:col-span-5")}>
             <CardHeader className="absolute z-10 top-1 flex-col items-start">
-              <h2 className="text-black font-medium text-2xl">
-                {temp}{temperatureUnit}
-              </h2>
+              <Chip variant="faded" color={getTemperatureLabel(temp, temperatureUnit)} className="p-3 ">
+                <h2 className="font-medium font-bold text-2xl">
+                  {temp}{temperatureUnit}
+                </h2>
+              </Chip>
             </CardHeader>
             <Image
               removeWrapper
               alt="Icono del clima"
-              className="w-full h-full scale-100 -translate-y-2 object-cover"
+              className="w-full h-full scale-100 object-cover"
               src={`https://rodrigokamada.github.io/openweathermap/images/${weather[0].icon}_t@4x.png`}
             />
             <CardFooter className="absolute bg-white/30 bottom-0 border-t-1 border-zinc-100/50 z-10 justify-between">
               <div className="w-full text-center">
-                <p className="text-black font-semibold text-lg capitalize">{weather[0].description}</p>
+                <p className="font-semibold text-lg capitalize">{weather[0].description}</p>
               </div>
             </CardFooter>
           </Card>

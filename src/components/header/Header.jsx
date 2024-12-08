@@ -50,7 +50,7 @@ export default function Header() {
                     <Button onClick={handleLogout}>Cerrar Sesión</Button>
                 </div>
             ) : (
-                <div style={{ display: 'flex', alignItems: "end" }}>
+                <div style={{ display: 'flex', alignItems: "end", gap:"10px" }}>
                     <Button onClick={() => setTypePanel(6)}>Registro</Button>
                     <Button onClick={() => setTypePanel(7)}>Login</Button>
                 </div>

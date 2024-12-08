@@ -12,21 +12,14 @@ export default function FormSearchCity() {
     const handleSubmit = (event) => {
         event.preventDefault();
         if (inputValue.trim() !== "") {
-            // no dejo buscar la misma ciudad seguida
-            if (inputValue === searchCity) {
-                setInputValue("");
-                return
-            }
-            else {
-                setSearchCity(inputValue);
-                setInputValue("");
-                setTypePanel(2);
-            }
+            setSearchCity(inputValue);
+            setInputValue("");
+            setTypePanel(2);
         }
     };
 
     return (
-        <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "row", alignItems:"center"}}>
+        <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
             <Input
                 style={{ width: isMobile ? "50px" : "140px" }}
                 type="text" id="search" name="search" placeholder={isMobile ? "Ciudad" : "Introduzca una ciudad"} value={inputValue} onChange={(e) => setInputValue(e.target.value)}

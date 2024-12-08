@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { DataContext } from '../../context/Contexts';
-import { Card, CardHeader, CardBody, CardFooter, Table, TableHeader, TableBody, TableRow, TableColumn, TableCell } from "@nextui-org/react";
+import { Card, CardHeader, CardBody, CardFooter, Table, TableHeader, TableBody, TableRow, TableColumn, TableCell, Image } from "@nextui-org/react";
 
 const ShowWeather = () => {
   const { units, weatherData } = useContext(DataContext);
@@ -14,17 +14,24 @@ const ShowWeather = () => {
       <Card className="card-weather">
         <CardHeader className="card-header-weather">
           <h1 className="card-header-title">{`Clima en ${name} (${country})`}</h1>
-
-          <div className="weather-icon-container">
-            <img
-              src={`https://rodrigokamada.github.io/openweathermap/images/${weather[0].icon}_t@4x.png`}
+          <Card isFooterBlurred className="w-full h-[200px] w-[200px] left-20 sm:col-span-5">
+            <CardHeader className="absolute z-10 top-1 flex-col items-start">
+              <h2 className="text-black font-medium text-2xl">
+                {temp}{temperatureUnit}
+              </h2>
+            </CardHeader>
+            <Image
+              removeWrapper
               alt="Icono del clima"
-              className="weather-icon"
+              className="w-full h-full scale-100 -translate-y-2 object-cover"
+              src={`https://rodrigokamada.github.io/openweathermap/images/${weather[0].icon}_t@4x.png`}
             />
-            <h2 className="weather-temp">
-              {temp}{temperatureUnit}
-            </h2>
-          </div>
+            <CardFooter className="absolute bg-white/30 bottom-0 border-t-1 border-zinc-100/50 z-10 justify-between">
+              <div className="w-full text-center">
+                <p className="text-black font-semibold text-lg capitalize">{weather[0].description}</p>
+              </div>
+            </CardFooter>
+          </Card>
         </CardHeader>
 
         {/* Body with Table */}
@@ -46,10 +53,6 @@ const ShowWeather = () => {
               <TableRow>
                 <TableCell className="weather-table-cell-bold">Humedad</TableCell>
                 <TableCell className="weather-table-cell">{humidity} %</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell className="weather-table-cell-bold">Descripción</TableCell>
-                <TableCell className="weather-table-cell">{weather[0].description}</TableCell>
               </TableRow>
               <TableRow>
                 <TableCell className="weather-table-cell-bold">Dirección del Viento</TableCell>

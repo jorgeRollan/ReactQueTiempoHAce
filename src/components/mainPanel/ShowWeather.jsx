@@ -1,10 +1,12 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { DataContext } from '../../context/Contexts';
+import { isMobile as deviceIsMobile } from 'react-device-detect';
 import { Card, CardHeader, CardBody, CardFooter, Table, TableHeader, TableBody, TableRow, TableColumn, TableCell, Image } from "@nextui-org/react";
 
 
 // Componente para mostrar el tiempo actual de la ciudad mediante una tarjeta de nextui con una cabecera y una taabla
 const ShowWeather = () => {
+  const [isMobile, setIsMobile] = useState(deviceIsMobile || window.innerWidth <= 768); // solucción para que actue como pantalla de movil cuando sea tablet y movil
   const { units, weatherData } = useContext(DataContext);
   const { name, main: { temp, feels_like, humidity, pressure }, wind: { deg, speed }, weather, sys: { country } } = weatherData;
   const temperatureUnit = units === 'metric' ? '°C' : '°F';
@@ -13,9 +15,9 @@ const ShowWeather = () => {
   return (
     <div className="show-weather-container">
       <Card className="card-weather">
-        <CardHeader className="card-header-weather">
+        <CardHeader className="card-header-weather" style={{ display: "flex", justifyContent: "flex-start", alignItems: "center", gap: "10px" }}>
           <h1 className="card-header-title">{`Clima en ${name} (${country})`}</h1>
-          <Card isFooterBlurred className="w-full h-[200px] w-[200px] left-20 sm:col-span-5">
+          <Card isFooterBlurred className={!isMobile ? ("w-full h-[200px] w-[200px] left-20 sm:col-span-5") : ("w-full h-[200px] w-[200px] sm:col-span-5")}>
             <CardHeader className="absolute z-10 top-1 flex-col items-start">
               <h2 className="text-black font-medium text-2xl">
                 {temp}{temperatureUnit}

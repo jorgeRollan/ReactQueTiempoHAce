@@ -1,13 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { MainPanelContext } from '../../../context/Contexts';
-import axios from 'axios';
 import { Chart } from 'react-google-charts';
-import { Card, CardBody } from '@nextui-org/react';
+import { Chip, Card, CardBody } from '@nextui-org/react';
+import fetchWeatherDaily from '../../../api/weather/fetchWeatherDaily';
 import './WeatherChart.css';
+
 
 // Componente para mostrar el tiempo de los próximos dias en un gráfico
 const WeatherChart = () => {
-  const appUrl = import.meta.env.VITE_APP_URL;
   const { units, weatherData } = useContext(MainPanelContext);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -21,7 +21,7 @@ const WeatherChart = () => {
       callback({ chartWrapper }) {
         const chart = chartWrapper.getChart();
         const selection = chart.getSelection();
-        
+
         if (selection.length > 0) {
           const [selectedItem] = selection;
           const row = selectedItem.row; // Obtenemos la fila seleccionada
@@ -42,51 +42,41 @@ const WeatherChart = () => {
   useEffect(() => {
     const fetchWeatherData = async () => {
       if (!weatherData || !weatherData.name) {
-        console.error("City name is not defined in weatherData.");
         setLoading(false);
         return;
       }
 
-      try {
-        const response = await axios.get(`${appUrl}:8000/api/weatherForecast`, {
-          params: {
-            selectCity: weatherData.name,
-            units,
-          }
-        });
+      fetchWeatherDaily({ selectCity: weatherData.name, units }, handleFetchWeatherData);
+    }
 
-        const forecast = response.data.list;
+    const handleFetchWeatherData = (response) => {
+      const forecast = response.list;
 
-        // Procesamos los datos por día
-        const forecastWithDetails = forecast.map((day) => ({
-          day: new Date(day.dt * 1000).toLocaleDateString("es-ES", { day: "numeric", month: "short" }), // Fecha del día
-          tempMin: day.temp.min, // Temperatura mínima
-          tempMax: day.temp.max, // Temperatura máxima
-          pressure: day.pressure, // Presión
-          humidity: day.humidity, // Humedad
-          description: day.weather[0].description, // Descripción del clima
-          icon: day.weather[0].icon, // Icono del clima
-        }));
+      // Procesamos los datos por día
+      const forecastWithDetails = forecast.map((day) => ({
+        day: new Date(day.dt * 1000).toLocaleDateString("es-ES", { day: "numeric", month: "short" }), // Fecha del día
+        tempMin: day.temp.min, // Temperatura mínima
+        tempMax: day.temp.max, // Temperatura máxima
+        pressure: day.pressure, // Presión
+        humidity: day.humidity, // Humedad
+        description: day.weather[0].description, // Descripción del clima
+        icon: day.weather[0].icon, // Icono del clima
+      }));
 
-        // Preparamos los datos para el gráfico (solo las temperaturas mínimas y máximas)
-        const chartData = [
-          ["Día", "Temperatura Mínima", "Temperatura Máxima"],
-          ...forecastWithDetails.map((day) => [
-            day.day,  // Día (formato: 03 dic, 04 dic, etc.)
-            day.tempMin,
-            day.tempMax,
-          ]),
-        ];
+      // Preparamos los datos para el gráfico (solo las temperaturas mínimas y máximas)
+      const chartData = [
+        ["Día", "Temperatura Mínima", "Temperatura Máxima"],
+        ...forecastWithDetails.map((day) => [
+          day.day,  // Día (formato: 03 dic, 04 dic, etc.)
+          day.tempMin,
+          day.tempMax,
+        ]),
+      ];
 
-        setData(chartData);
-        setForecastData(forecastWithDetails); // Guardamos todos los detalles de los días
-
-      } catch (error) {
-        console.error("Error fetching weather data:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+      setData(chartData);
+      setForecastData(forecastWithDetails); // Guardamos todos los detalles de los días
+      setLoading(false);
+    }
 
     if (weatherData?.name) {
       fetchWeatherData();
@@ -126,17 +116,19 @@ const WeatherChart = () => {
           {selectedDayData && (
             <div >
               <Card id='card'>
-                <CardBody>
-                  <h2 style={
-                            { textAlign: "center" }
-                  }><strong>Día:</strong> {selectedDayData.day}</h2>
-                 <div style={{ display: "flex", justifyContent: "center" }}>
-        <img
-          src={`https://rodrigokamada.github.io/openweathermap/images/${selectedDayData.icon}_t@2x.png`}
-          alt="Icono del clima"
-          className="weather-icon"
-        />
-      </div>
+                <CardBody style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+                  <Chip>
+                    <h2 style={
+                      { textAlign: "center" }
+                    }><strong>Día:</strong> {selectedDayData.day}</h2>
+                  </Chip>
+                  <div style={{ display: "flex", justifyContent: "center" }}>
+                    <img
+                      src={`https://rodrigokamada.github.io/openweathermap/images/${selectedDayData.icon}_t@2x.png`}
+                      alt="Icono del clima"
+                      className="weather-icon"
+                    />
+                  </div>
                   <div>
                     <p><strong>Temperatura Mínima:</strong> {selectedDayData.tempMin} {units === 'metric' ? '°C' : '°F'}</p>
                     <p><strong>Temperatura Máxima:</strong> {selectedDayData.tempMax} {units === 'metric' ? '°C' : '°F'}</p>

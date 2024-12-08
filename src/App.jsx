@@ -62,7 +62,7 @@ function App() {
       <NavBarContext.Provider value={{ units, setUnits, setTypePanel, theme, setTheme, searchCity, setSearchCity, setLoading }}>
         <Navigator />
       </NavBarContext.Provider>
-      <MainPanelContext.Provider value={{ historyCities, setHistoryCities, units, searchCity, login, setLogin, typePanel, loading, setLoading, clean, setClean, showWeather, setShowWeather, position, setPosition, weatherData, setWeatherData, selectCity, setSelectCity, fetch30, setFetch30, setTypePanel, fetchCiudades, setFetchCiudades, selectCities, setSelectCities, historyCities, setHistoryCities }} > 
+      <MainPanelContext.Provider value={{ historyCities, setHistoryCities, units, searchCity, login, setLogin, typePanel, loading, setLoading, clean, setClean, showWeather, setShowWeather, position, setPosition, weatherData, setWeatherData, selectCity, setSelectCity, fetch30, setFetch30, setTypePanel, fetchCiudades, setFetchCiudades, selectCities, setSelectCities }} > 
         <MainPanel />
       </MainPanelContext.Provider>
     </div>

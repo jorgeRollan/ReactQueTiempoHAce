@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { MainPanelContext } from '../../../context/Contexts';
-import { Chip, Chart } from 'react-google-charts';
-import { Card, CardBody } from '@nextui-org/react';
+import { Chart } from 'react-google-charts';
+import { Chip, Card, CardBody } from '@nextui-org/react';
 import './WeatherChart.css';
 import fetchWeatherHourly from '../../../api/weather/fetchWeatherHourly';
 

@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { MainPanelContext, RegisterContext, LoginContext } from "../../context/Contexts";
 import { Button } from "@nextui-org/react";
 import CardCity from "./cardPanels/CardCity";
-import Mapa from "./weather/Mapa";
+import Map from "./weather/Map";
 import LayersMap from "./LayersMap";
 import FavCities from "./cardPanels/FavCities";
 import CityLocation from "./cardPanels/CityLocation";
@@ -64,7 +64,7 @@ export default function MainPanel() {
 
                             {/* Columna derecha */}
                             <div className="right-panel">
-                                {weatherData && <Mapa />}
+                                {weatherData && <Map />}
 
                             </div>
                         </div> : (

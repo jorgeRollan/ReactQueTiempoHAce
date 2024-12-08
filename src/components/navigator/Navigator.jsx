@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import { isMobile as deviceIsMobile } from "react-device-detect"; // Importar `isMobile`
+import { isMobile as deviceIsMobile } from "react-device-detect";
 import { NavBarContext } from "../../context/Contexts";
 import FormSearchCity from "./FormSearchCity";
 import {
@@ -30,11 +30,11 @@ export default function Navigator() {
     window.alert("Unidades cambiadas: " + value);
   };
 
+  // useEffect para cambiar si hace mas pequeña la pantalla o si es movil
   useEffect(() => {
-    // Listener para redimensionar la pantalla
     const handleResize = () => {
       console.log("Window width:", window.innerWidth);
-      setIsMobile(deviceIsMobile || window.innerWidth <= 1300);
+      setIsMobile(deviceIsMobile);
     };
 
     window.addEventListener("resize", handleResize);
@@ -53,6 +53,7 @@ export default function Navigator() {
         padding: "0px"
       }}
     >
+      {/* Si es movil se muestra el menú de navegación */}
       {isMobile ? (
         <>
           <NavbarContent >
@@ -136,49 +137,50 @@ export default function Navigator() {
             </NavbarMenu>
           )}
         </>
-      ) : (
-        <NavbarContent className="px-1" style={{ display: "flex", flexWrap: "wrap", justifyContent: "flex-start", alignItems: "center", gap: "10px" }}>
-          <NavbarItem>
-            <Link
-              variant="solid"
-              underline="hover"
-              style={{ cursor: "pointer" }}
-              onClick={() => { setLoading(true); setTypePanel(1); }}
-            >
-              Clima por Ubicación
-            </Link>
-          </NavbarItem>
-          <NavbarItem>
-            <Link
-              variant="solid"
-              underline="hover"
-              style={{ cursor: "pointer" }}
-              onClick={() => setTypePanel(5)}
-            >
-              Ciudades Favoritas
-            </Link>
-          </NavbarItem>
-          <NavbarItem>
-            <Link
-              variant="solid"
-              underline="hover"
-              style={{ cursor: "pointer" }}
-              onClick={() => setTypePanel(3)}
-            >
-              Tiempo por Comunidades
-            </Link>
-          </NavbarItem>
-          <NavbarItem>
-            <Link
-              underline="hover"
-              style={{ cursor: "pointer" }}
-              onClick={() => setTypePanel(4)}
-            >
-              Mapas de Prónostico
-            </Link>
-          </NavbarItem>
-        </NavbarContent>
-      )}
+      ) :
+        {/* Si no es movil se muestran los links de la barra de navegación */ }
+          (<NavbarContent className="px-1" style={{ display: "flex", flexWrap: "wrap", justifyContent: "flex-start", alignItems: "center", gap: "10px" }}>
+            <NavbarItem>
+              <Link
+                variant="solid"
+                underline="hover"
+                style={{ cursor: "pointer" }}
+                onClick={() => { setLoading(true); setTypePanel(1); }}
+              >
+                Clima por Ubicación
+              </Link>
+            </NavbarItem>
+            <NavbarItem>
+              <Link
+                variant="solid"
+                underline="hover"
+                style={{ cursor: "pointer" }}
+                onClick={() => setTypePanel(5)}
+              >
+                Ciudades Favoritas
+              </Link>
+            </NavbarItem>
+            <NavbarItem>
+              <Link
+                variant="solid"
+                underline="hover"
+                style={{ cursor: "pointer" }}
+                onClick={() => setTypePanel(3)}
+              >
+                Tiempo por Comunidades
+              </Link>
+            </NavbarItem>
+            <NavbarItem>
+              <Link
+                underline="hover"
+                style={{ cursor: "pointer" }}
+                onClick={() => setTypePanel(4)}
+              >
+                Mapas de Prónostico
+              </Link>
+            </NavbarItem>
+          </NavbarContent>
+          )}
       <NavbarContent
         style={{ display: "flex", justifyContent: "end" }}
       >

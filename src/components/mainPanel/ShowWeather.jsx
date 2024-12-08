@@ -2,10 +2,11 @@ import { useContext } from 'react';
 import { DataContext } from '../../context/Contexts';
 import { Card, CardHeader, CardBody, CardFooter, Table, TableHeader, TableBody, TableRow, TableColumn, TableCell, Image } from "@nextui-org/react";
 
+
+// Componente para mostrar el tiempo actual de la ciudad mediante una tarjeta de nextui con una cabecera y una taabla
 const ShowWeather = () => {
   const { units, weatherData } = useContext(DataContext);
   const { name, main: { temp, feels_like, humidity, pressure }, wind: { deg, speed }, weather, sys: { country } } = weatherData;
-
   const temperatureUnit = units === 'metric' ? '°C' : '°F';
   const speedUnit = units === 'metric' ? 'm/s' : 'mph';
 
@@ -34,7 +35,6 @@ const ShowWeather = () => {
           </Card>
         </CardHeader>
 
-        {/* Body with Table */}
         <CardBody>
           <Table aria-label="Información Meteorológica" className="weather-table">
             <TableHeader>
@@ -69,10 +69,6 @@ const ShowWeather = () => {
             </TableBody>
           </Table>
         </CardBody>
-
-        {/* Footer */}
-        <CardFooter>
-        </CardFooter>
       </Card>
     </div>
   );

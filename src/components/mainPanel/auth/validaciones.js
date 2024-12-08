@@ -1,3 +1,4 @@
+// Función para validar los datos del formulario de registro
 const validateInputs = (formData) => {
     if (!formData.name || !formData.name.trim()) {
         return "El campo Nombre es obligatorio";

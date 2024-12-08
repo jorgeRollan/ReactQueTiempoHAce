@@ -2,17 +2,18 @@ import { useContext } from "react";
 import { FavCitiesContext } from "../../../context/Contexts";
 import { Select, SelectItem } from "@nextui-org/react";
 
+// Componente para mostrar el select de ciudades favoritas
 export default function SelectCities() {
     let { selectCity, setSelectCity, selectCities, setLoading } = useContext(FavCitiesContext);
 
+    // Evento de cambio en el select
     const handleChange = (event) => {
         let city = event.target.value;
-        if (city !== selectCity) {
-            setLoading(true);
-            setSelectCity(city);
-        }
+        setLoading(true);
+        setSelectCity(city);
     };
 
+    // Si no hay ciudades favoritas, se muestra una lista de ciudades predeterminada
     if (selectCities === null || selectCities.length === 0) {
         return (
             <Select
@@ -48,4 +49,4 @@ export default function SelectCities() {
             </Select>
         );
     }
-}    
+}

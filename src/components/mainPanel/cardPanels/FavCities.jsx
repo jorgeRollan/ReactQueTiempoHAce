@@ -6,6 +6,7 @@ import { MainPanelContext, DataContext, FavCitiesContext } from '../../../contex
 import DataFallback from "../DataFallback";
 import "./FavCities.css";
 
+// Componente para mostrar la información meteorológica de las ciudades favoritas del usuario contiene el select de ciudades
 export default function FavCities() {
   const [loading, setLoading] = useState(false);
   const { units, setPosition, weatherData, setWeatherData, selectCity, setSelectCity, selectCities } = useContext(MainPanelContext);
@@ -16,6 +17,7 @@ export default function FavCities() {
     setLoading(false);
   };
 
+  // UseEffect para actualizar la información meteorológica cuando cambie la ciudad favorita o el sistema de unidades
   useEffect(() => {
     if (selectCity !== null) {
       setLoading(true);

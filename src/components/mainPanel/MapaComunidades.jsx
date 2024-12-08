@@ -8,31 +8,10 @@ import ShowWeather from "./ShowWeather";
 import fetchWeatherByCity from "../../api/weather/fetchWeatherByCity";
 import { DataContext, MainPanelContext } from "../../context/Contexts";
 import { isMobile } from "react-device-detect";
+import communities from "../../utils/communityList";
 import "./MapaComunidades.css";
 
-const communities = {
-  "Andalusia": { name: "Andalucía", city: "Sevilla" },
-  "Aragon": { name: "Aragón", city: "Zaragoza" },
-  "Asturias": { name: "Asturias", city: "Oviedo" },
-  "Balearic Islands": { name: "Islas Baleares", city: "Palma" },
-  "Basque Country": { name: "País Vasco", city: "Bilbao" },
-  "Canary Islands": { name: "Islas Canarias", city: "Las Palmas de Gran Canaria" },
-  "Cantabria": { name: "Cantabria", city: "Santander" },
-  "Castile and Leon": { name: "Castilla y León", city: "Valladolid" },
-  "Castile-La Mancha": { name: "Castilla-La Mancha", city: "Toledo" },
-  "Catalonia": { name: "Cataluña", city: "Barcelona" },
-  "Extremadura": { name: "Extremadura", city: "Mérida" },
-  "Galicia": { name: "Galicia", city: "Santiago de Compostela" },
-  "La Rioja": { name: "La Rioja", city: "Logroño" },
-  "Madrid": { name: "Madrid", city: "Madrid" },
-  "Murcia": { name: "Región de Murcia", city: "Murcia" },
-  "Navarra": { name: "Navarra", city: "Pamplona" },
-  "Valencia": { name: "Valencia", city: "Valencia" },
-  "Ceuta": { name: "Ceuta", city: "Ceuta" },
-  "Melilla": { name: "Melilla", city: "Melilla" },
-};
-
-
+// Componente para mostrar el mapa interactivo de las comunidades de España y su clima
 const MapaComunidades = () => {
   const toastIdRef = useRef(null);
   const [weatherData, setWeatherData] = useState(null);
@@ -71,6 +50,7 @@ const MapaComunidades = () => {
     }
   };
 
+  // Evento de selección de comunidad
   const handleRegionSelect = async (regionName) => {
     const selectedCommunity = communities[regionName];
 
@@ -78,12 +58,14 @@ const MapaComunidades = () => {
       return;
     }
 
+    // Si la comunidad seleccionada es la misma que la actual se desaparece el toast y se limpia la comunidad
     if (community && community.name === selectedCommunity.name) {
       toast.dismiss(toastIdRef.current);
       setCommunity(null);
       return;
     }
 
+    // Si hace click en una comunidad sin haber pinchado antes se muestra 
     setCommunity(selectedCommunity);
     setLoading(true);
     fetchWeatherByCity(

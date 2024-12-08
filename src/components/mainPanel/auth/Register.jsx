@@ -3,9 +3,11 @@ import ReCAPTCHA from 'react-google-recaptcha';
 import { Input, Button } from "@nextui-org/react";
 import { RegisterContext } from '../../../context/Contexts';
 import fetchRegister from '../../../api/auth/fetchRegister';
-import validateInputs from "./Validaciones";
+import validateInputs from "./validaciones";
 import './Register.css';
 
+
+// Componente para registrarse en el mainPanel
 const Register = () => {
     const setTypePanel = useContext(RegisterContext);
     const [loading, setLoading] = useState(false);
@@ -18,6 +20,7 @@ const Register = () => {
     const [error, setError] = useState(null);
     const [captchaToken, setCaptchaToken] = useState(null);
 
+    // Evento de cambio en el input
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({
@@ -30,28 +33,31 @@ const Register = () => {
         }
     };
 
+    // Evento de enviar el formulario
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError(null);
         setLoading(true);
         setError(null);
 
+        // Validación de los datos del formulario
         const validationError = validateInputs(formData);
         if (validationError) {
             setError(validationError);
             return;
         }
 
+        // Validación del CAPTCHA
         if (!captchaToken) {
             setError('Por favor completa el CAPTCHA.');
             setLoading(false);
             return;
         }
 
-        const result = await fetchRegister({...formData, recaptcha_token: captchaToken});
+        const result = await fetchRegister({ ...formData, recaptcha_token: captchaToken });
         if (result.success) {
             window.alert("Registro exitoso");
-            setTypePanel(7);
+            setTypePanel(7); // Cambia al panel de inicio de sesión
         } else {
             setError(result.message);
         }
@@ -104,7 +110,9 @@ const Register = () => {
                     />
                 </div>
 
+                {/* Mensaje de error si hay algún error en el formulario */}
                 {error && <p className="error-message">{error}</p>}
+
                 <ReCAPTCHA
                     style={{ marginBottom: "10px" }}
                     sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}

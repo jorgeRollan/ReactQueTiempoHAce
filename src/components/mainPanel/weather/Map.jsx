@@ -6,25 +6,35 @@ import 'leaflet-fullscreen/dist/leaflet.fullscreen.css';
 import L from 'leaflet';
 import { MainPanelContext } from '../../../context/Contexts';
 
+// Componente para mostrar un mapa con la ubicacion búsqueda/localizada y el icono del clima
 const Map = () => {
   const { position, weatherData } = useContext(MainPanelContext);
   const mapRef = useRef(null);
 
+  //Los siguientes useEffect los tuve que utilizar por problemas de la librearia leaflet al poner el botón de pantalla
+  // completa en el mapa y redimensionarlo estas son las dos soluciones que investigué
 
+
+  // UseEffect para agregar el control de pantalla completa al mapa(se usa una libreria externa)
   useEffect(() => {
+    // se usa el ref para interactuar con el mapa
     if (!mapRef.current) return;
+    // se agrega el control de pantalla completa al mapa
     mapRef.current.addControl(new L.Control.Fullscreen());
 
     return () => {
+      // si se desmonta el componente se elimina el control de pantalla completa
       mapRef.current.removeControl(new L.Control.Fullscreen());
     };
   }, [mapRef]);
 
 
+  // useEffect para redimensionar el mapa cuando cambie el tamaño de la ventana o el div donde se muestra el mapa
   useEffect(() => {
     if (mapRef.current) {
       const map = mapRef.current;
       const resizeObserver = new ResizeObserver(() => {
+        // se llama a la función invalidateSize del mapa para redimensionarlo(encontrado en internet)
         map.invalidateSize();
       });
 
@@ -34,11 +44,13 @@ const Map = () => {
       }
 
       return () => {
+        // se desconecta el resizeObserver para que no se repita la función
         resizeObserver.disconnect();
       };
     }
   }, []);
 
+  // Icono del tiempo sobre el mapa
   var weatherIcon = L.icon({
     iconUrl: `http://openweathermap.org/img/w/${weatherData.weather[0].icon}.png`,
     shadowUrl: "https://img.icons8.com/?size=64&id=r3zZvjy5L6eB&format=png",

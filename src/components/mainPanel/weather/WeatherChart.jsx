@@ -5,6 +5,7 @@ import { Chart } from 'react-google-charts';
 import { Card, CardBody } from '@nextui-org/react';
 import './WeatherChart.css';
 
+// Componente para mostrar el tiempo de los próximos dias en un gráfico
 const WeatherChart = () => {
   const appUrl = import.meta.env.VITE_APP_URL;
   const { units, weatherData } = useContext(MainPanelContext);
@@ -30,7 +31,7 @@ const WeatherChart = () => {
           const dayData = forecastData.find(entry => entry.day === selectedDay);
 
           if (dayData) {
-            setSelectedDayData(dayData); // Guardamos los datos correspondientes a ese día
+            setSelectedDayData(dayData);
           }
         }
       },

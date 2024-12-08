@@ -1,0 +1,22 @@
+const communities = {
+    "Andalusia": { name: "Andalucía", city: "Sevilla" },
+    "Aragon": { name: "Aragón", city: "Zaragoza" },
+    "Asturias": { name: "Asturias", city: "Oviedo" },
+    "Balearic Islands": { name: "Islas Baleares", city: "Palma" },
+    "Basque Country": { name: "País Vasco", city: "Bilbao" },
+    "Canary Islands": { name: "Islas Canarias", city: "Las Palmas de Gran Canaria" },
+    "Cantabria": { name: "Cantabria", city: "Santander" },
+    "Castile and Leon": { name: "Castilla y León", city: "Valladolid" },
+    "Castile-La Mancha": { name: "Castilla-La Mancha", city: "Toledo" },
+    "Catalonia": { name: "Cataluña", city: "Barcelona" },
+    "Extremadura": { name: "Extremadura", city: "Mérida" },
+    "Galicia": { name: "Galicia", city: "Santiago de Compostela" },
+    "La Rioja": { name: "La Rioja", city: "Logroño" },
+    "Madrid": { name: "Madrid", city: "Madrid" },
+    "Murcia": { name: "Región de Murcia", city: "Murcia" },
+    "Navarra": { name: "Navarra", city: "Pamplona" },
+    "Valencia": { name: "Valencia", city: "Valencia" },
+    "Ceuta": { name: "Ceuta", city: "Ceuta" },
+    "Melilla": { name: "Melilla", city: "Melilla" },
+};
+export default communities;

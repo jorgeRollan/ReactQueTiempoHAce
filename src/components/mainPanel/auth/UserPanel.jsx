@@ -16,9 +16,9 @@ import {
 } from "@nextui-org/react";
 import { MainPanelContext } from "../../../context/Contexts";
 
-const UserPanel = () => {
-  const appUrl = import.meta.env.VITE_APP_URL;
 
+// Componente para mostrar los datos del usuario en el mainPanel
+const UserPanel = () => {
   const [selectedCity, setSelectedCity] = useState(null);
 
   const { login, selectCities, setSelectCities, historyCities } = useContext(MainPanelContext);
@@ -31,6 +31,7 @@ const UserPanel = () => {
     }
     else window.alert("Seleccione una ciudad a borrar")
   };
+
 
   const handleRemoveCity = (response) => {
     if (response.success === true) {
@@ -51,12 +52,10 @@ const UserPanel = () => {
 
   return (
     <Card css={{ mw: "400px", p: "$6", margin: "20px auto" }}>
-      {/* Header */}
       <CardHeader>
         <h3>Información del Usuario</h3>
       </CardHeader>
 
-      {/* Body */}
       <CardBody>
         <span>Nombre de usuario:</span>
         <span>{login?.name || "N/A"}</span>

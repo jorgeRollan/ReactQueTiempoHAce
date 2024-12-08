@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Input, Listbox, ListboxItem } from '@nextui-org/react';
 import countryList from '../../utils/countryList';
 
+
+// Componente para buscar países en la página de localización si el usuario está logueado
 const CountrySearch = ({ onSelectCountry }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredCountries, setFilteredCountries] = useState([]);
@@ -13,11 +15,12 @@ const CountrySearch = ({ onSelectCountry }) => {
     // Filtrar países si el término tiene más de 3 letras
     if (value.length > 3) {
       const results = countryList.filter((country) =>
+        // los busco en inglés y en español
         country.name.toLowerCase().includes(value.toLowerCase()) || country.nombre.toLowerCase().includes(value.toLowerCase())
       );
       setFilteredCountries(results);
     } else {
-      setFilteredCountries([]); // Vacía resultados si hay menos de 3 letras
+      setFilteredCountries([]);
     }
   };
 

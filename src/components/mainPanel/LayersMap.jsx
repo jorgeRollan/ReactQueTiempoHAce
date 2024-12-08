@@ -14,18 +14,7 @@ const LayersMap = () => {
     const [coordinates, setCoordinates] = useState([40.4168, -3.7038]);
     const [mapKey, setMapKey] = useState(Date.now());
     const apiId = import.meta.env.VITE_OPENWEATHER_API_KEY;
-
     const mapRef = useRef(null);
-
-    useEffect(() => {
-        if (!mapRef.current) return;
-        mapRef.current.addControl(new L.Control.Fullscreen());
-
-        return () => {
-            mapRef.current.removeControl(new L.Control.Fullscreen());
-        };
-    }, [mapRef]);
-
     const { login } = useContext(MainPanelContext);
 
     const getLayerUrl = (layerType) =>
@@ -39,7 +28,7 @@ const LayersMap = () => {
         wind: getLayerUrl('wind'),
         snow: getLayerUrl('snow'),
     };
-
+    // la api de opennWeather no devuelve las capas pedidas en español
     const spanishLayerNames = {
         TEMPERATURA: 'temp',
         PRECIPITACION: 'precipitation',
@@ -49,15 +38,34 @@ const LayersMap = () => {
         NIEVE: 'snow',
     };
 
+
+    // useEffect para agregar el control de pantalla completa al mapa(se usa una libreria externa)
+    useEffect(() => {
+        if (!mapRef.current) return;
+        mapRef.current.addControl(new L.Control.Fullscreen());
+
+        return () => {
+            mapRef.current.removeControl(new L.Control.Fullscreen());
+        };
+    }, [mapRef]);
+
+    
+    // CAMBIAR!!!!!!!!!
+    
+
+
+    // Evento de cambio en el selector de  con los botones
     const handleLayerChange = (selectedLayer) => {
         setLayer(spanishLayerNames[selectedLayer]);
     };
 
+    // Evento de cambio de ubicación en el mapa
     const handleCountryLocation = (response) => {
         setCoordinates([response.latitude, response.longitude]);
         setMapKey(Date.now());
     }
 
+    // Evento de selección de país
     const handleCountrySelect = (country) => {
         setSelectedCountry(country);
         fetchCountryLocation(country, handleCountryLocation);
@@ -67,6 +75,7 @@ const LayersMap = () => {
         <div className="map-container">
             <h1>Mapa de {selectedCountry ? selectedCountry.nombre : "España"}</h1>
 
+            {/* Si está logueado se muestra el componente de búsqueda de país */}
             {login &&
                 <div className="search-country">
                     <CountrySearch onSelectCountry={handleCountrySelect} />

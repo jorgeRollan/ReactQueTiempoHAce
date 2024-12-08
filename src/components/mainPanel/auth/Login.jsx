@@ -5,12 +5,14 @@ import { LoginContext } from '../../../context/Contexts';
 import fetchCities from '../../../api/cities/fetchCities';
 import fetchLogin from '../../../api/auth/fetchLogin';
 
+
+// Componente para iniciar sesión en el mainPanel
 const Login = () => {
     const [error, setError] = useState(null);
     const [successMessage, setSuccessMessage] = useState(null);
     const [remember, setRemember] = useState(false);
     const [loading, setLoading] = useState(false);
-    const { setTypePanel, setLogin, setSelectCities, setSelectCity } = useContext(LoginContext);
+    const { setTypePanel, setLogin, setSelectCities, setSelectCity, setHistoryCities } = useContext(LoginContext);
 
     const [formData, setFormData] = useState({
         email: '',
@@ -30,6 +32,7 @@ const Login = () => {
         }
     }
 
+    // Evento de cambio en el checkbox de recordar la contraseña
     const handleRememberChange = () => {
         setRemember(!remember);
     };
@@ -61,12 +64,12 @@ const Login = () => {
             ...formData,
             recaptcha_token: captchaToken
         });
-        console.log(result)
+
         if (result.success) {
             fetchCities("favorites", handleFetchCiudades);
             fetchCities("history", handleFetchCiudadesHistory);
             setLogin(result.user);
-            setTypePanel(1);
+            setTypePanel(1); // Cambia al panel de tiempo por ubicación
             setSuccessMessage(result.message);
         } else {
             // Error en el inicio de sesión
@@ -104,20 +107,20 @@ const Login = () => {
                     />
                 </div>
 
+                {/* Mensaje de error si hay algún error en el formulario y mensaje de éxito si hay algún mensaje de éxito */}
                 {error && <p style={{ color: 'red' }}>{error}</p>}
                 {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
 
-                
-                    <Checkbox
-                        size="sm"
-                        style={{ marginBottom: "10px", width: "100%" }}
-                        type="checkbox"
-                        label="Mantener sesión"
-                        checked={remember}
-                        onChange={handleRememberChange}
-                    >
-                        Mantener sesión
-                    </Checkbox>
+                <Checkbox
+                    size="sm"
+                    style={{ marginBottom: "10px", width: "100%" }}
+                    type="checkbox"
+                    label="Mantener sesión"
+                    checked={remember}
+                    onChange={handleRememberChange}
+                >
+                    Mantener sesión
+                </Checkbox>
 
                 <ReCAPTCHA
                     style={{ marginBottom: "10px" }}

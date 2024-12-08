@@ -1,8 +1,11 @@
 import * as Compass from 'cardinal-direction';
 
 const DataFallback = (dataWeather) => {
+  // Deestructuring para llamar los atributos mas fácil
   let { name, main: { temp, feels_like, humidity, pressure }, wind: { deg, speed }, weather, sys: { country } } = dataWeather
 
+
+  // traducción a español de las direcciones del viento recibidas por la librería cardinal-direction
   const degToSpanish = (degrees) => {
     switch (degrees) {
       case "North":
@@ -74,13 +77,17 @@ const DataFallback = (dataWeather) => {
     }
   };
 
+
+  // se agregan valores predefinidos si no están disponibles
   name ||= "Nombre no disponible";
   country ||= "País no disponible";
   temp = temp ? `${Math.trunc(temp)}` : "Temperatura no disponible";
   feels_like = feels_like ? `${Math.trunc(feels_like)}` : "Sensación térmica no disponible";
   humidity = humidity ? `${humidity}` : "Humedad no disponible";
   weather[0].description ??= "Descripción no disponible";
+  // la api de openweather no devuelve la dirección del viento sino los grados asi que uso libreria para convertir
   let card = Compass.cardinalConverter(Compass.cardinalFromDegree(deg)) ?? "Dirección del viento no disponible";
+  //los traduzco a español
   deg = degToSpanish(card);
   speed = speed ? `${speed}` : "Velocidad del viento no disponible";
   pressure = pressure ? `${pressure}` : "Presión atmosférica no disponible";

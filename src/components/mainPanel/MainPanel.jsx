@@ -73,7 +73,7 @@ export default function MainPanel() {
                                 {forecastH && <WeatherHourlyChart />}
                             </>
                         )}
-                    <div className="button-div" style={{ display: "flex", flexWrap: "wrap", alignItems: "center" }}>
+                    <div className="button-div" style={{ display: "flex", flexWrap: "wrap", alignItems: "center", margin: "10px", gap: "5px" }}>
                         {login && typePanel !== 5 && <SaveFavCity />}
                         {!forecastH && <Button color="primary" className="forecast-button" onClick={() => setForecast(!forecast)}>{!forecast ? "Tiempo próximos días" : "Cerrar"}</Button>}
                         {!forecast && <Button color="primary" className="forecast-button" onClick={() => setForecastH(!forecastH)}>{!forecastH ? "Tiempo próximas horas" : "Cerrar"}</Button>}

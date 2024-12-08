@@ -1,3 +1,5 @@
+// Lista de países estática con sus datos
+
 const CountryList = [
     { name: "Afghanistan", nombre: "Afganistán", code: "AF", region: "Asia", regionCode: "ASI", capital: "Kabul" },
     { name: "Albania", nombre: "Albania", code: "AL", region: "Europe", regionCode: "EUR", capital: "Tirana" },

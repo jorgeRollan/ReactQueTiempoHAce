@@ -1,3 +1,4 @@
+// Función auxiliar para manejar errores de la API en un mismo lugar
 const handleError = (error, customMessage = 'Ocurrió un error inesperado.') => {
     let errorMessage = customMessage;
 
@@ -10,11 +11,6 @@ const handleError = (error, customMessage = 'Ocurrió un error inesperado.') => 
     } else {
         errorMessage = error.message || 'Error desconocido.';
     }
-
-    // Log the error for debugging
-    console.error('Error:', error);
-
-    // Return the error message (calling functions can decide how to display it)
     return errorMessage;
 };
 

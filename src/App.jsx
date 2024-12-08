@@ -26,7 +26,7 @@ function App() {
   const handleFetchCiudades = (newCities) => {
     if (newCities.length > 0) {
       setSelectCities(newCities);
-      setSelectCity(newCities[0]?.name_city || null); // Update selectCity to the first city or null
+      setSelectCity(newCities[0]?.name_city || null);
     }
   };
 

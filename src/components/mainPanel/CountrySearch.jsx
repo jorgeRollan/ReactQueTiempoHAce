@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Input, Listbox, ListboxItem } from '@nextui-org/react';
-import CountryList from '../../utils/CountryList';
+import countryList from '../../utils/countryList';
 
 const CountrySearch = ({ onSelectCountry }) => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -12,7 +12,7 @@ const CountrySearch = ({ onSelectCountry }) => {
 
     // Filtrar países si el término tiene más de 3 letras
     if (value.length > 3) {
-      const results = CountryList.filter((country) =>
+      const results = countryList.filter((country) =>
         country.name.toLowerCase().includes(value.toLowerCase()) || country.nombre.toLowerCase().includes(value.toLowerCase())
       );
       setFilteredCountries(results);

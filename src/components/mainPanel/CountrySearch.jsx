@@ -1,13 +1,11 @@
-// CountrySearch.jsx
 import React, { useState } from 'react';
 import { Input, Listbox, ListboxItem } from '@nextui-org/react';
-import CountryList from './CountryList'; // Asegúrate de tener esta lista de países
+import CountryList from '../../utils/CountryList';
 
 const CountrySearch = ({ onSelectCountry }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredCountries, setFilteredCountries] = useState([]);
 
-  // Manejador de cambios en el input
   const handleSearch = (e) => {
     const value = e.target.value;
     setSearchTerm(value);

@@ -49,16 +49,30 @@
 }
 
 
-
 /* Ajustes para pantallas pequeñas */
 @media (max-width: 768px) {
+    .panel-card {
+        flex-direction: column; /* Cambiar a disposición vertical */
+        align-items: center; /* Asegura que estén centrados */ /* Añadir espacio entre los paneles */
+    }
+
+    .left-panel {
+        width: 100%; /* Ocupar todo el ancho */
+        padding: 10px;
+        align-items: center; /* Centrar el contenido */
+    }
+
+    .right-panel {
+        width: 50%;
+        height: 200px; /* Ajustar automáticamente la altura */
+        margin-right: 0;
+        padding: 10px; /* Centrar verticalmente */
+    }
+
     .button-div {
         display: flex;
-        flex-direction: column;
-    }
-    .left-panel {
-        max-width: 100%;
-        align-items: center;
-        height: 50%;
+        flex-direction: column; /* Botones en columna */
+        width: 100%;
+        align-items: center; /* Centrar los botones */
     }
 }

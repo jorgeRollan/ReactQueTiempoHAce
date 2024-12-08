@@ -1,19 +1,20 @@
 import { useContext, useState } from "react";
 import { MainPanelContext, RegisterContext, LoginContext } from "../../context/Contexts";
 import { Button } from "@nextui-org/react";
-import CardCity from "../CardCity";
-import Mapa from "../Mapa";
-import LayersMap from "../LayersMap";
-import FavCities from "../FavCities";
-import CityLocation from "../CityLocation";
-import SaveFavCity from "../SaveFavCity";
-import Register from "./Register";
-import Login from "./Login";
-import WeatherChart from "./WeatherChart";
-import WeatherHourlyChart from "./WeatherHourlyChart";
-import './MainPanel.css';
-import UserPanel from "./UserPanel";
-import MapaComunidades from "../MapaComunidades";
+import CardCity from "./cardPanels/CardCity";
+import Mapa from "./weather/Mapa";
+import LayersMap from "./LayersMap";
+import FavCities from "./cardPanels/FavCities";
+import CityLocation from "./cardPanels/CityLocation";
+import SaveFavCity from "./cardPanels/SaveFavCity";
+import Register from "./auth/Register";
+import Login from "./auth/Login";
+import WeatherChart from "./weather/WeatherChart";
+import WeatherHourlyChart from "./weather/WeatherHourlyChart";
+import "./MainPanel.css";
+import UserPanel from "./auth/UserPanel";
+import MapaComunidades from "./MapaComunidades";
+
 
 export default function MainPanel() {
     let { setHistoryCities, historyCities, units, searchCity, login, setLogin, typePanel, loading, setLoading, showWeather, setShowWeather, position, setPosition, weatherData, setWeatherData, selectCity, setSelectCity, setTypePanel, selectCities, setSelectCities, fetchCities, setFetchCities } = useContext(MainPanelContext);

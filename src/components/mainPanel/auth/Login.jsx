@@ -1,9 +1,9 @@
 import React, { useState, useContext } from 'react';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { Input, Button, Checkbox } from '@nextui-org/react';
-import { LoginContext } from '../../context/Contexts';
-import fetchCities from '../../api/cities/fetchCities';
-import fetchLogin from '../../api/auth/fetchLogin';
+import { LoginContext } from '../../../context/Contexts';
+import fetchCities from '../../../api/cities/fetchCities';
+import fetchLogin from '../../../api/auth/fetchLogin';
 
 const Login = () => {
     const [error, setError] = useState(null);

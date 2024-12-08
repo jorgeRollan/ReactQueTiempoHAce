@@ -4,23 +4,19 @@ import { Button, Chip, Avatar } from "@nextui-org/react";
 import './Header.css';
 import logout from "../../api/auth/logout";
 
+// Cabecera de la página con los botones de inicio, registro y cierre de sesión(y su lógica) asi como el boton de perfil
 export default function Header() {
     const { setTypePanel, login, setLogin, setSelectCities, setSelectCity } = useContext(HeaderContext);
 
     const handleLogout = async () => {
         try {
-            const result = await logout(); // Call the refactored logout function
+            const result = await logout();
             if (result.success) {
                 window.alert("Cierre de sesión exitoso.");
-                // Update the context states upon successful logout
                 setLogin(null);
                 setSelectCities([]);
                 setSelectCity(null);
                 setTypePanel(1);
-            } else {
-                // Show error message if logout failed
-                console.error(result.message);
-                alert(result.message); // Optional: show an alert with the error
             }
         } catch (error) {
             console.error("Error al cerrar sesión:", error);
@@ -36,7 +32,7 @@ export default function Header() {
             {login ? (
                 <div>
                     <Chip
-                        style={{ cursor: "pointer", color: "white" }}
+                        style={{ cursor: "pointer", color: "white", marginRight: "10px" }}
                         onClick={() => setTypePanel(10)}
                         radius="sm"
                         variant="flat"

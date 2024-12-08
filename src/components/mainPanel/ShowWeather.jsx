@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { DataContext } from "../context/Contexts";
+import { DataContext } from '../../context/Contexts';
 import { Card, CardHeader, CardBody, CardFooter, Table, TableHeader, TableBody, TableRow, TableColumn, TableCell } from "@nextui-org/react";
 
 const ShowWeather = () => {

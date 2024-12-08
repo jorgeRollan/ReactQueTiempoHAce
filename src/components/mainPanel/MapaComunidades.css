@@ -1,0 +1,73 @@
+/* Contenedor principal del mapa */
+.map-container {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+  }
+  
+  /* Contenedor de los datos del clima */
+  .weather-data-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 2;
+    padding: 20px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  /* Panel de datos del clima */
+  .weather-data-panel {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-grow: 2;
+    padding: 20px;
+    width: 100%;
+  }
+  
+  /* Botón cerrar */
+  .close-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    margin: 0 auto;
+  }
+  
+  .close-button {
+    cursor: pointer;
+    width: fit-content;
+  }
+  
+  /* Botón dentro del Toast */
+  .toast-button {
+    margin-left: 10px;
+    cursor: pointer;
+  }
+  @media (max-width: 768px) {
+    .map-container {
+      padding: 10px;
+      margin-top: 10px;
+      width: 100%; /* Asegura que ocupe todo el ancho */
+      height: auto;
+      justify-content: center; /* Centrado vertical */
+      align-items: center; /* Centrado horizontal */
+      flex-direction: column;
+      text-align: center;
+    }
+    .map-container h1 {
+      margin-bottom: 10px;
+      font-size: small;
+    }
+    .map-container svg {
+      width: 90%; /* Tamaño relativo para que se ajuste al contenedor */
+      max-width: 220px; /* Limita el ancho máximo */
+      margin: 0 auto; /* Centrado */
+      height: auto;
+    }
+  }

@@ -14,9 +14,10 @@ import {
   SelectItem,
 } from "@nextui-org/react";
 
+// Navegador de la página con los links de los diferentes paneles y el selector de unidades(incluye el componente FormSearchCity)
 export default function Navigator() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(deviceIsMobile || window.innerWidth <= 768); // Combinar `isMobile` y tamaño de pantalla
+  const [isMobile, setIsMobile] = useState(deviceIsMobile || window.innerWidth <= 768); // solucción para que actue como pantalla de movil cuando sea tablet y movil
 
   const { historyCities, setHistoryCities, login, setTypePanel, theme, setTheme, units, setUnits, searchCity, setSearchCity, setLoading } = useContext(NavBarContext);
 
@@ -43,14 +44,15 @@ export default function Navigator() {
 
   return (
     <Navbar
-    id="menu-container"
-    position="sticky"
-    maxWidth="full"
-    isMenuOpen={isMenuOpen}
-    onMenuOpenChange={setIsMenuOpen}
-    style={{padding:"0px"
-    }}
-  >
+      id="menu-container"
+      position="sticky"
+      maxWidth="full"
+      isMenuOpen={isMenuOpen}
+      onMenuOpenChange={setIsMenuOpen}
+      style={{
+        padding: "0px"
+      }}
+    >
       {isMobile ? (
         <>
           <NavbarContent >
@@ -60,16 +62,16 @@ export default function Navigator() {
           </NavbarContent>
           {isMenuOpen && (
             <NavbarMenu portalContainer={document.getElementById("menu-container")}
-            style={{
-              backdropFilter: "blur(20px) saturate(200%)",
-              backgroundColor: "rgba(230, 230, 230, 0.95)",
-              left: "0",
-              borderRadius: "8px",
-              display: "flex",
-              flexDirection: "column",
-              boxShadow: "0 2px 10px rgba(0, 0, 0, 0.3)",
-              zIndex:100
-            }}
+              style={{
+                backdropFilter: "blur(20px) saturate(200%)",
+                backgroundColor: "rgba(230, 230, 230, 0.95)",
+                left: "0",
+                borderRadius: "8px",
+                display: "flex",
+                flexDirection: "column",
+                boxShadow: "0 2px 10px rgba(0, 0, 0, 0.3)",
+                zIndex: 100
+              }}
             >
               <NavbarMenuItem>
                 <Link
@@ -78,7 +80,7 @@ export default function Navigator() {
                   size="lg"
                   style={{ cursor: "pointer" }}
                   onClick={() => {
-                    setIsMenuOpen((prev) => !prev); 
+                    setIsMenuOpen((prev) => !prev);
                     setTypePanel(1);
                     setLoading(true);
                   }}
@@ -93,7 +95,7 @@ export default function Navigator() {
                   size="lg"
                   style={{ cursor: "pointer" }}
                   onClick={() => {
-                    setIsMenuOpen((prev) => !prev); 
+                    setIsMenuOpen((prev) => !prev);
                     setTypePanel(5);
                     setLoading(true);
                   }}
@@ -108,7 +110,7 @@ export default function Navigator() {
                   size="lg"
                   style={{ cursor: "pointer" }}
                   onClick={() => {
-                    setIsMenuOpen((prev) => !prev); 
+                    setIsMenuOpen((prev) => !prev);
                     setTypePanel(3);
                     setLoading(true);
                   }}
@@ -123,7 +125,7 @@ export default function Navigator() {
                   size="lg"
                   style={{ cursor: "pointer" }}
                   onClick={() => {
-                    setIsMenuOpen((prev) => !prev); 
+                    setIsMenuOpen((prev) => !prev);
                     setTypePanel(4);
                     setLoading(true);
                   }}
@@ -187,9 +189,10 @@ export default function Navigator() {
         </NavbarItem>
         <NavbarItem>
           <Select
+            color="warning"
             style={{ width: isMobile ? "75px" : "200px", marginTop: "15px", marginBottom: "15px" }}
-            label={isMobile ? "Unis." : "Unidades"}
-            placeholder={isMobile ? "." : "Selecciona un sistema"}
+            label={"Unidades"}
+            placeholder={isMobile ? "_" : "Selecciona un sistema"}
             value={units}
             onChange={(event) => handleUnitsChange(event.target.value)}
           >

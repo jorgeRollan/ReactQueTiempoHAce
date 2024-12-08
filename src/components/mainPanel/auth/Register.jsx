@@ -1,8 +1,8 @@
 import React, { useState, useContext } from 'react';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { Input, Button } from "@nextui-org/react";
-import { RegisterContext } from '../../context/Contexts';
-import fetchRegister from '../../api/auth/fetchRegister';
+import { RegisterContext } from '../../../context/Contexts';
+import fetchRegister from '../../../api/auth/fetchRegister';
 import validateInputs from "./Validaciones";
 import './Register.css';
 

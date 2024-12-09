@@ -13,6 +13,7 @@ import {
   Divider,
   Spacer,
   Button,
+  Avatar
 } from "@nextui-org/react";
 import { MainPanelContext } from "../../../context/Contexts";
 
@@ -43,28 +44,32 @@ const UserPanel = () => {
   };
 
   const handleSelectionChange = (selected) => {
-    const iterator = selected.values();
-    if (selected.size > 0) {
-      const city = selectCities[iterator.next().value];
-      setSelectedCity(city);
-    }
+    const selectedIndex = Array.from(selected)[0];
+    setSelectedCity(selectCities[selectedIndex]);
   };
 
   return (
-    <Card css={{ mw: "400px", p: "$6", margin: "20px auto" }}>
-      <CardHeader>
+    <Card className="w-[700px] sm:col-span-5">
+      <CardHeader className="flex flex-col gap-5 items-start justify-center ml-3">
         <h3>Información del Usuario</h3>
+        <div className="flex gap-5 flex-row">
+          <Avatar
+            isBordered
+            radius="full"
+            size="md"
+            src="src\assets\termometro.svg"
+          />
+          <div className="flex flex-col gap-1 items-start justify-center">
+            <span>Nombre de usuario:</span>
+            <span>{login?.name || "N/A"}</span>
+            <span>Correo de Usuario:</span>
+            <span>{login?.email || "N/A"}</span>
+          </div>
+        </div>
+        <Divider />
       </CardHeader>
 
       <CardBody>
-        <span>Nombre de usuario:</span>
-        <span>{login?.name || "N/A"}</span>
-        <Spacer y={5.0} />
-
-        <span>Correo de Usuario:</span>
-        <span>{login?.email || "N/A"}</span>
-        <Spacer y={5.0} />
-        <Divider />
         {selectCities && selectCities.length > 0 ? (
           <Table aria-label="Ciudades Favoritas"
             selectionMode="single"
@@ -106,7 +111,7 @@ const UserPanel = () => {
           <span>No hay ciudades visitadas por el usuario.</span>
         )}
       </CardBody>
-    </Card>
+    </Card >
   );
 };
 

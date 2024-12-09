@@ -19,7 +19,7 @@ export default function Navigator() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(deviceIsMobile || window.innerWidth <= 1200); // solucción para que actue como pantalla de movil cuando sea tablet y movil
 
-  const { historyCities, setHistoryCities, login, setTypePanel, theme, setTheme, units, setUnits, searchCity, setSearchCity, setLoading } = useContext(NavBarContext);
+  const { historyCities, setHistoryCities, login, setTypePanel, theme, setTheme, units, setUnits, searchCity, setSearchCity} = useContext(NavBarContext);
 
   const toggleTheme = () => {
     setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
@@ -36,9 +36,7 @@ export default function Navigator() {
       console.log("Window width:", window.innerWidth);
       setIsMobile(deviceIsMobile || window.innerWidth <= 1200);
     };
-
     window.addEventListener("resize", handleResize);
-
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
@@ -83,7 +81,6 @@ export default function Navigator() {
                   onClick={() => {
                     setIsMenuOpen((prev) => !prev);
                     setTypePanel(1);
-                    setLoading(true);
                   }}
                 >
                   Clima por Ubicación
@@ -98,7 +95,6 @@ export default function Navigator() {
                   onClick={() => {
                     setIsMenuOpen((prev) => !prev);
                     setTypePanel(5);
-                    setLoading(true);
                   }}
                 >
                   Ciudades Favoritas
@@ -113,7 +109,6 @@ export default function Navigator() {
                   onClick={() => {
                     setIsMenuOpen((prev) => !prev);
                     setTypePanel(3);
-                    setLoading(true);
                   }}
                 >
                   Tiempo por Comunidades
@@ -128,10 +123,9 @@ export default function Navigator() {
                   onClick={() => {
                     setIsMenuOpen((prev) => !prev);
                     setTypePanel(4);
-                    setLoading(true);
                   }}
                 >
-                  Mapas de Prónostico
+                  Mapas de Pronóstico
                 </Link>
               </NavbarMenuItem>
             </NavbarMenu>
@@ -144,7 +138,7 @@ export default function Navigator() {
                 variant="solid"
                 underline="hover"
                 style={{ cursor: "pointer" }}
-                onClick={() => { setLoading(true); setTypePanel(1); }}
+                onClick={() => { setTypePanel(1); }}
               >
                 Clima por Ubicación
               </Link>
@@ -175,7 +169,7 @@ export default function Navigator() {
                 style={{ cursor: "pointer" }}
                 onClick={() => setTypePanel(4)}
               >
-                Mapas de Prónostico
+                Mapas de Pronóstico
               </Link>
             </NavbarItem>
           </NavbarContent>

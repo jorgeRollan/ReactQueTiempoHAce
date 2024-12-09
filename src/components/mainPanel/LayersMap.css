@@ -49,33 +49,34 @@
 /* Responsive style for mobile devices */
 @media (max-width: 768px) {
   .map-container-map {
-      height: 400px;
-      width: 100%;
+    height: 400px;
+    width: 100%;
   }
 
   .layer-buttons {
-      flex-direction: column;
-      align-items: center;
+    flex-direction: column;
+    align-items: center;
   }
 
   .layer-buttons button {
-      margin-bottom: 10px;
+    margin-bottom: 10px;
   }
+
   /* Adjusting the attribution control size */
-.leaflet-control-attribution {
-    display:none; /* Adjust the line height to avoid text overlap */
-}
+  .leaflet-control-attribution {
+    display: none;
+  }
 
-/* Adjust the attribution image size (e.g., flag images) */
-.leaflet-control-attribution img {
-  width: 16px; /* Adjust the size of any images (like flags) in the attribution */
-  height: auto;
-  vertical-align: middle; /* Align the image with text */
-}
+  /* Adjust the attribution image size (e.g., flag images) */
+  .leaflet-control-attribution img {
+    width: 16px;
+    height: auto;
+    vertical-align: middle;
+  }
 
-/* Optional: Hide Ukrainian flag or any specific attribution image */
-.leaflet-control-attribution img[src*="ukraine"] {
-  display: none; /* This hides the Ukrainian flag if it's visible */
-}
+  /* Optional: Hide Ukrainian flag or any specific attribution image */
+  .leaflet-control-attribution img[src*="ukraine"] {
+    display: none;
+  }
 
 }

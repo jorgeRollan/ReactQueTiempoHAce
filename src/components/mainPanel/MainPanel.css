@@ -7,8 +7,7 @@
     min-height: 78vh;
     box-sizing: border-box;
     padding: 15px;
-
-    /* Background image styles */
+    margin-left: auto;
     background-image: url('/src/assets/clouds_sky_dawn_131441_3840x2400.jpg');
     background-size: cover;
     background-position: center;
@@ -22,7 +21,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    gap: 1.rem;
+    gap: 0.5.rem;
     width: 100%;
 }
 
@@ -32,14 +31,15 @@
     flex-grow: 2;
     flex-direction: column;
     padding-left: 10px;
+    margin-left: auto;
     padding-bottom: 10px;
 }
 
 /* Columna derecha para el mapa y el botón */
 .right-panel {
-    width: 370px;
+    width: 350px;
     display: flex;
-    margin-right: 30px;
+    margin-right: auto;
     flex-direction: column;
     align-items: flex-end;
     padding-left: 50px;
@@ -51,27 +51,28 @@
 /* Ajustes para pantallas pequeñas */
 @media (max-width: 1200px) {
     .panel-card {
-        flex-direction: column; /* Cambiar a disposición vertical */
-        align-items: center; /* Asegura que estén centrados */ /* Añadir espacio entre los paneles */
+        flex-direction: column;
+        align-items: center;
     }
 
     .left-panel {
-        width: 100%; /* Ocupar todo el ancho */
+        width: 100%;
+        margin-left: auto;
         padding: 10px;
-        align-items: center; /* Centrar el contenido */
+        align-items: center;
     }
 
     .right-panel {
         width: 50%;
-        height: 200px; /* Ajustar automáticamente la altura */
+        height: 200px;
         margin-right: 0;
-        padding: 10px; /* Centrar verticalmente */
+        padding: 10px;
     }
 
     .button-div {
         display: flex;
-        flex-direction: column; /* Botones en columna */
+        flex-direction: column;
         width: 100%;
-        align-items: center; /* Centrar los botones */
+        align-items: center;
     }
 }

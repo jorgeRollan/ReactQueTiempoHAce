@@ -3,12 +3,12 @@
     font-size: 1.5rem;
     font-weight: bold;
     color: white;
-    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black background */
+    background-color: rgba(0, 0, 0, 0.7);
     padding: 10px 15px;
-    border-radius: 8px; /* Rounded corners */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Subtle shadow */
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     text-align: center;
-    margin: 0 auto; /* Center horizontally */
+    margin: 0 auto;
   }
   
   /* Styles for loading and error messages */
@@ -21,10 +21,10 @@
   
   .loading-message h2, .error-message h2 {
     font-size: 1.8rem;
-    color: #333; /* Dark text color */
+    color: #333;
     padding: 15px 20px;
-    background-color: rgba(0, 0, 0, 0.1); /* Light translucent background for contrast */
-    border-radius: 12px; /* Smooth corners */
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
     text-align: center;
   }
   

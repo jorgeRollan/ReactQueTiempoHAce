@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { MainPanelContext, RegisterContext, LoginContext } from "../../context/Contexts";
+import { MainPanelContext } from "../../context/Contexts";
 import { Button } from "@nextui-org/react";
 import CardCity from "./cardPanels/CardCity";
 import Map from "./weather/Map";
@@ -74,7 +74,7 @@ export default function MainPanel() {
                             </>
                         )}
                     <div className="button-div" style={{ display: "flex", flexWrap: "wrap", alignItems: "center", margin: "10px", gap: "5px" }}>
-                        {login && typePanel !== 5 && <SaveFavCity />}
+                        {login && weatherData && typePanel !== 5 && <SaveFavCity />}
                         {!forecastH && weatherData && <Button color="primary" className="forecast-button" onClick={() => setForecast(!forecast)}>{!forecast ? "Tiempo próximos días" : "Cerrar"}</Button>}
                         {!forecast && weatherData && <Button color="primary" className="forecast-button" onClick={() => setForecastH(!forecastH)}>{!forecastH ? "Tiempo próximas horas" : "Cerrar"}</Button>}
                     </div>
@@ -94,9 +94,9 @@ export default function MainPanel() {
             )}
 
             {typePanel === 6 && (
-                <RegisterContext.Provider value={setTypePanel}>
+                <MainPanelContext.Provider value={setTypePanel}>
                     <Register />
-                </RegisterContext.Provider>
+                </MainPanelContext.Provider>
             )}
 
             {typePanel === 7 && (

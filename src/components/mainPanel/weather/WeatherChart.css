@@ -1,49 +1,51 @@
 /* Contenedor principal del gráfico */
 .weather-chart {
-    padding: 1rem;
-    background-color: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    margin-top: 1rem;
-  }
-  
-  /* Gráfico de temperatura */
-  .weather-chart .google-chart {
-    border-radius: 8px;
-    overflow: hidden;
-  }
-  
-  #card{
-    margin: 20px;
-    padding: 20px;
-  }
+  padding: 1rem;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin-top: 1rem;
+}
 
-    /* Estilo para el texto de los h2 */
-    .h2 {
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: white;
-      background-color: rgba(0, 0, 0, 0.7); /* Negro con opacidad del 70% */
-      padding: 10px 15px;
-      border-radius: 8px; /* Bordes redondeados */
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Sombra suave */
-      text-align: center;
-      margin: 0 auto; /* Centrado horizontal */
-    }
-    
-    /* Estilo para los mensajes de carga y error */
-    .loading-message, .error-message {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center; /* Toma toda la altura del viewport */
-    }
-    
-    .loading-message h2, .error-message h2 {
-      font-size: 1.8rem;
-      color: #333; /* Texto oscuro */
-      padding: 15px 20px;
-      background-color: rgba(0, 0, 0, 0.1); /* Fondo ligero para contraste */
-      border-radius: 12px;
-      text-align: center;
-    }
+/* Gráfico de temperatura */
+.weather-chart .google-chart {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+#card {
+  margin: 20px;
+  padding: 20px;
+}
+
+/* Estilo para el texto de los h2 */
+.h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 10px 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  margin: 0 auto;
+}
+
+/* Estilo para los mensajes de carga y error */
+.loading-message,
+.error-message {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loading-message h2,
+.error-message h2 {
+  font-size: 1.8rem;
+  color: #333;
+  padding: 15px 20px;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  text-align: center;
+}

@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { NavBarContext } from "../../context/Contexts";
 import { Input, Button } from "@nextui-org/react";
 import { isMobile as deviceIsMobile } from "react-device-detect";
@@ -7,7 +7,7 @@ import { isMobile as deviceIsMobile } from "react-device-detect";
 export default function FormSearchCity() {
     const [inputValue, setInputValue] = useState("");
     const [isMobile, setIsMobile] = useState(deviceIsMobile || window.innerWidth <= 768);
-    const { searchCity, setSearchCity, setTypePanel } = useContext(NavBarContext);
+    const { setSearchCity, setTypePanel } = useContext(NavBarContext);
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -18,11 +18,20 @@ export default function FormSearchCity() {
         }
     };
 
+    // useEffect para cambiar si hace mas pequeña la pantalla o si es movil
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(deviceIsMobile || window.innerWidth <= 768);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
     return (
         <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
             <Input
-                style={{ width: isMobile ? "50px" : "140px" }}
-                type="text" id="search" name="search" placeholder={isMobile ? "Ciudad" : "Introduzca una ciudad"} value={inputValue} onChange={(e) => setInputValue(e.target.value)}
+                style={{ width: isMobile ? "50px" : "180px" }}
+                type="text" id="search" name="search" placeholder={isMobile ? "Ciudad" : "Introduzca una ciudad(,país)"} value={inputValue} onChange={(e) => setInputValue(e.target.value)}
             />
             <Button size="sm" type="submit">Buscar</Button>
         </form>

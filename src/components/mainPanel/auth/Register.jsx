@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { Input, Button } from "@nextui-org/react";
-import { RegisterContext } from '../../../context/Contexts';
+import {MainPanelContext } from '../../../context/Contexts';
 import fetchRegister from '../../../api/auth/fetchRegister';
 import validateInputs from "./validaciones";
 import './Register.css';
@@ -9,7 +9,7 @@ import './Register.css';
 
 // Componente para registrarse en el mainPanel
 const Register = () => {
-    const setTypePanel = useContext(RegisterContext);
+    const setTypePanel = useContext(MainPanelContext);
     const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
         name: '',

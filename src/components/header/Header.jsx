@@ -6,7 +6,7 @@ import logout from "../../api/auth/logout";
 
 // Cabecera de la página con los botones de inicio, registro y cierre de sesión(y su lógica) asi como el boton de perfil
 export default function Header() {
-    const { setTypePanel, login, setLogin, setSelectCities, setSelectCity } = useContext(HeaderContext);
+    const { loading, setTypePanel, login, setLogin, setSelectCities, setSelectCity } = useContext(HeaderContext);
 
     const handleLogout = async () => {
         try {
@@ -25,34 +25,38 @@ export default function Header() {
 
     return (
         <header className="header">
-            <div style={{ display: "flex", alignItems: "center" }} className="logo-title-container">
+            <div className="logo-title-container">
                 <img src="../favicon.ico" alt="Logo" className="logo" style={{ width: "60px", height: "60px" }} />
                 <h1>QueTiempoHace</h1>
             </div>
-            {login ? (
+            {!loading && (
                 <div>
-                    <Chip
-                        style={{ cursor: "pointer", color: "white", marginRight: "10px" }}
-                        onClick={() => setTypePanel(10)}
-                        radius="sm"
-                        variant="flat"
-                        avatar={
-                            <Avatar
-                                name={login.name}
-                                size="sm"
-                                color="warning"
-                                getInitials={(name) => name.charAt(0)}
-                            />
-                        }
-                    >
-                        {login.name}
-                    </Chip>
-                    <Button onClick={handleLogout}>Cerrar Sesión</Button>
-                </div>
-            ) : (
-                <div style={{ display: 'flex', alignItems: "end", gap:"10px" }}>
-                    <Button onClick={() => setTypePanel(6)}>Registro</Button>
-                    <Button onClick={() => setTypePanel(7)}>Login</Button>
+                    {login ? (
+                        <div>
+                            <Chip
+                                style={{ cursor: "pointer", color: "white", marginRight: "10px" }}
+                                onClick={() => setTypePanel(10)}
+                                radius="sm"
+                                variant="flat"
+                                avatar={
+                                    <Avatar
+                                        name={login.name}
+                                        size="sm"
+                                        color="warning"
+                                        getInitials={(name) => name.charAt(0)}
+                                    />
+                                }
+                            >
+                                {login.name}
+                            </Chip>
+                            <Button onClick={handleLogout}>Cerrar Sesión</Button>
+                        </div>
+                    ) : (
+                        <div style={{ display: 'flex', alignItems: "end", gap: "10px" }}>
+                            <Button onClick={() => setTypePanel(6)}>Registro</Button>
+                            <Button onClick={() => setTypePanel(7)}>Login</Button>
+                        </div>
+                    )}
                 </div>
             )}
         </header>

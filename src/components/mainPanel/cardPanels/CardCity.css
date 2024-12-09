@@ -4,8 +4,7 @@
   justify-content: center;
   width: 100%;
   flex-grow: 2;
-  max-width: 1000px;
-  margin: 0 auto;
+  max-width: 800px;
 }
 
 /* Tarjeta */

@@ -39,14 +39,15 @@ function App() {
   useEffect(() => {
     const initializeAuth = async () => {
       try {
+        setLoading(true);
         const response = await checkAuth();
-        console.log(response);
         if (response.authenticated) {
           setLogin(response.user);
           window.alert(`Bienvenido ${response.user.name}`);
           fetchCities("favorites", handleFetchCiudades);
           fetchCities("history", handleFetchCiudadesHistory);
         }
+        setLoading(false);
       } catch (error) {
         window.alert('Error al autenticar. Por favor, intente nuevamente.');
       }
@@ -56,7 +57,7 @@ function App() {
 
   return (
     <div>
-      <HeaderContext.Provider value={{ setTypePanel, login, setLogin, setSelectCities, setLoading, setSelectCity }}>
+      <HeaderContext.Provider value={{ loading, setTypePanel, login, setLogin, setSelectCities, setLoading, setSelectCity }}>
         <Header />
       </HeaderContext.Provider>
       <NavBarContext.Provider value={{ units, setUnits, setTypePanel, theme, setTheme, searchCity, setSearchCity, setLoading }}>

@@ -35,6 +35,7 @@ export default function CityLocation() {
 
   // UseEffect para actualizar la información meteorológica cuando cambie la ubicación o el sistema de unidades
   useEffect(() => {
+    setWeatherData(null);
     setLoading(true);
     if (position) {
       fetchWeatherByCoordinates(position.coords.latitude, position.coords.longitude, units, handleFetch)

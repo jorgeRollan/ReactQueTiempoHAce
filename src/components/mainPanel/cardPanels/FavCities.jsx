@@ -20,6 +20,7 @@ export default function FavCities() {
   // UseEffect para actualizar la información meteorológica cuando cambie la ciudad favorita o el sistema de unidades
   useEffect(() => {
     if (selectCity !== null) {
+      setWeatherData(null);
       setLoading(true);
       fetchWeatherByCity(selectCity, handleFetch, units);
     }

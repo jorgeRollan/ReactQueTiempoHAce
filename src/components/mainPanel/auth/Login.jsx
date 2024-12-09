@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { Input, Button, Checkbox } from '@nextui-org/react';
-import { LoginContext } from '../../../context/Contexts';
+import { MainPanelContext } from '../../../context/Contexts';
 import fetchCities from '../../../api/cities/fetchCities';
 import fetchLogin from '../../../api/auth/fetchLogin';
 
@@ -12,7 +12,7 @@ const Login = () => {
     const [successMessage, setSuccessMessage] = useState(null);
     const [remember, setRemember] = useState(false);
     const [loading, setLoading] = useState(false);
-    const { setTypePanel, setLogin, setSelectCities, setSelectCity, setHistoryCities } = useContext(LoginContext);
+    const { setTypePanel, setLogin, setSelectCities, setSelectCity, setHistoryCities } = useContext(MainPanelContext);
 
     const [formData, setFormData] = useState({
         email: '',
@@ -68,7 +68,7 @@ const Login = () => {
         if (result.success) {
             fetchCities("favorites", handleFetchCiudades);
             fetchCities("history", handleFetchCiudadesHistory);
-            setLogin(result.user);
+            setLogin(result.data);
             setTypePanel(1); // Cambia al panel de tiempo por ubicación
             setSuccessMessage(result.message);
         } else {

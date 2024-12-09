@@ -100,9 +100,9 @@ export default function MainPanel() {
             )}
 
             {typePanel === 7 && (
-                <LoginContext.Provider value={{ setTypePanel, setLogin, setSelectCities, setSelectCity }}>
+                <MainPanelContext.Provider value={{ setTypePanel, setLogin, setSelectCities, setSelectCity, setHistoryCities }}>
                     <Login />
-                </LoginContext.Provider>
+                </MainPanelContext.Provider>
             )}
 
             {typePanel === 10 && (

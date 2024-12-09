@@ -4,10 +4,11 @@ import handleError from '../../utils/handleError';
 const fetchLogin = async (formData) => {
     try {
         const result = await postRequest(`${BASE_URL}/login`, formData, true);
+        console.log(result);
         return {
             success: true,
             message: 'Inicio de sesión exitoso.',
-            data: result.data,
+            data: result.user,
         };
     } catch (error) {
         const errorMessage = handleError(error, 'Error al iniciar sesión.');

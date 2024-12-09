@@ -44,6 +44,7 @@ const Register = () => {
         const validationError = validateInputs(formData);
         if (validationError) {
             setError(validationError);
+            setLoading(false);
             return;
         }
 
@@ -60,6 +61,7 @@ const Register = () => {
             setTypePanel(7); // Cambia al panel de inicio de sesión
         } else {
             setError(result.message);
+            setLoading(false);
         }
     };
 

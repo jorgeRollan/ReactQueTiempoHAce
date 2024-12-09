@@ -54,15 +54,17 @@ const UserPanel = () => {
         <h3>Información del Usuario</h3>
         <div className="flex gap-5 flex-row">
           <Avatar
+            className="mt-5"
             isBordered
             radius="full"
+            jus
             size="md"
             src="src\assets\termometro.svg"
           />
           <div className="flex flex-col gap-1 items-start justify-center">
-            <span>Nombre de usuario:</span>
+            <span className="font-bold">Nombre de usuario:</span>
             <span>{login?.name || "N/A"}</span>
-            <span>Correo de Usuario:</span>
+            <span className="font-bold">Correo de Usuario:</span>
             <span>{login?.email || "N/A"}</span>
           </div>
         </div>

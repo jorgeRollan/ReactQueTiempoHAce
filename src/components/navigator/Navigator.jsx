@@ -17,7 +17,7 @@ import {
 // Navegador de la página con los links de los diferentes paneles y el selector de unidades(incluye el componente FormSearchCity)
 export default function Navigator() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(deviceIsMobile || window.innerWidth <= 768); // solucción para que actue como pantalla de movil cuando sea tablet y movil
+  const [isMobile, setIsMobile] = useState(deviceIsMobile || window.innerWidth <= 1200); // solucción para que actue como pantalla de movil cuando sea tablet y movil
 
   const { historyCities, setHistoryCities, login, setTypePanel, theme, setTheme, units, setUnits, searchCity, setSearchCity, setLoading } = useContext(NavBarContext);
 
@@ -34,7 +34,7 @@ export default function Navigator() {
   useEffect(() => {
     const handleResize = () => {
       console.log("Window width:", window.innerWidth);
-      setIsMobile(deviceIsMobile);
+      setIsMobile(deviceIsMobile || window.innerWidth <= 1200);
     };
 
     window.addEventListener("resize", handleResize);
@@ -138,7 +138,7 @@ export default function Navigator() {
           )}
         </>
       ) :
-          (<NavbarContent className="px-1" style={{ display: "flex", flexWrap: "wrap", justifyContent: "flex-start", alignItems: "center", gap: "10px" }}>
+          (<NavbarContent className="px-1" style={{ display: "flex", flexWrap: "wrap", flexGrow:"2", justifyContent: "flex-start", alignItems: "center", gap: "10px" }}>
             <NavbarItem>
               <Link
                 variant="solid"

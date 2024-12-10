@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from "react";
-import fetchWeatherByCity from  "../../../api/weather/fetchWeatherByCity";
+import fetchWeatherByCity from "../../../api/weather/fetchWeatherByCity";
 import ShowWeather from "../ShowWeather";
 import Select from "./Select";
 import { MainPanelContext, DataContext, FavCitiesContext } from '../../../context/Contexts';
@@ -10,7 +10,7 @@ import "./FavCities.css";
 export default function FavCities() {
   const [loading, setLoading] = useState(false);
   const { units, setPosition, weatherData, setWeatherData, selectCity, setSelectCity, selectCities } = useContext(MainPanelContext);
-  
+
   const handleFetch = (newWeatherData) => {
     setPosition({ coords: { latitude: newWeatherData.coord.lat, longitude: newWeatherData.coord.lon } });
     setWeatherData(DataFallback(newWeatherData));
@@ -24,13 +24,10 @@ export default function FavCities() {
       setLoading(true);
       fetchWeatherByCity(selectCity, handleFetch, units);
     }
-    else {
-      setWeatherData(null);
-    }
   }, [selectCity, units]);
 
   return (
-    <div style={{ display: 'flex',flexWrap:'wrap', flexDirection:"column", justifyContent: 'flex-start', alignItems: 'flex-start', flexGrow: 2, padding: '20px' }}>
+    <div style={{ display: 'flex', flexWrap: 'wrap', flexDirection: "column", justifyContent: 'flex-start', alignItems: 'flex-start', flexGrow: 2, padding: '20px' }}>
       <FavCitiesContext.Provider value={{ selectCity, setSelectCity, selectCities, setLoading }}>
         <div style={{ display: 'flex', width: "200px" }}>
           <Select />

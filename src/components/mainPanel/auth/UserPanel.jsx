@@ -57,7 +57,6 @@ const UserPanel = () => {
             className="mt-5"
             isBordered
             radius="full"
-            jus
             size="md"
             src="src\assets\termometro.svg"
           />

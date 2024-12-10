@@ -5,16 +5,18 @@ import DataFallback from "../DataFallback";
 import fetchWeatherByCoordinates from "../../../api/weather/fetchWeatherByCoordinates";
 import "./CityLocation.css";
 
-
 // Componente para mostrar la información meteorológica de la ubicación actual del usuario
 export default function CityLocation() {
   const [loading, setLoading] = useState(true);
   const [noLocation, setNoLocation] = useState(false);
-  const reloadLocationTime = 100000; // Tiempo de recarga de la ubicación en milisegundos
+  const [localPosition, setLocalPosition] = useState(null);
+  const [localWeatherData, setLocalWeatherData] = useState(null);
 
-  const { units, position, setPosition, weatherData, setWeatherData } =
-    useContext(MainPanelContext);
+  const reloadLocationTime = 100000;
 
+  const { units, setPosition, setWeatherData } = useContext(MainPanelContext);
+
+  // UseEffect obtener la ubicacion del usuario
   useEffect(() => {
     if (!navigator.geolocation) {
       setNoLocation(true);
@@ -23,7 +25,7 @@ export default function CityLocation() {
       return;
     }
 
-    // LLamo a la función getLocation antes del intervalo porque si no se descuadra 
+    // Llama a la función getLocation antes del intervalo porque si no se descuadra
     getLocation();
     const interval = setInterval(() => {
       getLocation();
@@ -32,29 +34,33 @@ export default function CityLocation() {
     return () => clearInterval(interval);
   }, []);
 
-
   // UseEffect para actualizar la información meteorológica cuando cambie la ubicación o el sistema de unidades
   useEffect(() => {
-    setWeatherData(null);
-    setLoading(true);
-    if (position) {
-      fetchWeatherByCoordinates(position.coords.latitude, position.coords.longitude, units, handleFetch)
+    if (localPosition) {
+      setLoading(true);
+      fetchWeatherByCoordinates(
+        localPosition.coords.latitude,
+        localPosition.coords.longitude,
+        units,
+        handleFetch
+      );
     }
-  }, [position, units]);
+  }, [localPosition, units]);
 
   const handleFetch = (newWeatherData) => {
     if (newWeatherData) {
-      setWeatherData(DataFallback(newWeatherData));
+      const processedData = DataFallback(newWeatherData);
+      setLocalWeatherData(processedData);
+      setWeatherData(processedData);
+      setPosition(localPosition);
     }
-    setLoading(false)
+    setLoading(false);
   };
 
-
-  // Función para obtener la ubicación del usuario mediante la API de geolocalización del navegador
   const getLocation = () => {
     navigator.geolocation.getCurrentPosition(
       (pos) => {
-        setPosition(pos);
+        setLocalPosition(pos);
         setNoLocation(false);
       },
       (error) => {
@@ -73,7 +79,6 @@ export default function CityLocation() {
     );
   }
 
-  // Si no se puede obtener la ubicación o si el usuario no ha activado la ubicación, se muestra un mensaje de error
   if (noLocation) {
     return (
       <div className="error-message">
@@ -84,7 +89,7 @@ export default function CityLocation() {
 
   return (
     <div className="city-location-container">
-      <DataContext.Provider value={{ units, weatherData }}>
+      <DataContext.Provider value={{ units, weatherData: localWeatherData }}>
         <ShowWeather />
       </DataContext.Provider>
     </div>

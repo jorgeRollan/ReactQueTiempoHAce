@@ -21,6 +21,7 @@ function App() {
   const [historyCities, setHistoryCities] = useState(null);
   const [fetchCiudades, setFetchCiudades] = useState(false);
   const [units, setUnits] = useState('metric');
+  const [currentView, setCurrentView] = useState("cityLocation");
   const { theme, setTheme } = useContext(MainContext);
 
   const handleFetchCiudades = (newCities) => {
@@ -60,10 +61,10 @@ function App() {
       <HeaderContext.Provider value={{ loading, setTypePanel, login, setLogin, setSelectCities, setLoading, setSelectCity }}>
         <Header />
       </HeaderContext.Provider>
-      <NavBarContext.Provider value={{ units, setUnits, setTypePanel, theme, setTheme, searchCity, setSearchCity, setLoading }}>
+      <NavBarContext.Provider value={{ setCurrentView, units, setUnits, setTypePanel, theme, setTheme, searchCity, setSearchCity, setLoading }}>
         <Navigator />
       </NavBarContext.Provider>
-      <MainPanelContext.Provider value={{ historyCities, setHistoryCities, units, searchCity, login, setLogin, typePanel, loading, setLoading, clean, setClean, showWeather, setShowWeather, position, setPosition, weatherData, setWeatherData, selectCity, setSelectCity, fetch30, setFetch30, setTypePanel, fetchCiudades, setFetchCiudades, selectCities, setSelectCities }} > 
+      <MainPanelContext.Provider value={{ currentView, historyCities, setHistoryCities, units, searchCity, login, setLogin, typePanel, loading, setLoading, clean, setClean, showWeather, setShowWeather, position, setPosition, weatherData, setWeatherData, selectCity, setSelectCity, fetch30, setFetch30, setTypePanel, fetchCiudades, setFetchCiudades, selectCities, setSelectCities }} >
         <MainPanel />
       </MainPanelContext.Provider>
     </div>

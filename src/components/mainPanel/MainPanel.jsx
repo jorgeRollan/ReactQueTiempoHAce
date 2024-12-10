@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { MainPanelContext } from "../../context/Contexts";
 import { Button } from "@nextui-org/react";
 import CardCity from "./cardPanels/CardCity";
@@ -17,15 +17,23 @@ import MapaComunidades from "./MapaComunidades";
 
 
 export default function MainPanel() {
-    let { setHistoryCities, historyCities, units, searchCity, login, setLogin, typePanel, loading, setLoading, showWeather, setShowWeather, position, setPosition, weatherData, setWeatherData, selectCity, setSelectCity, setTypePanel, selectCities, setSelectCities, fetchCities, setFetchCities } = useContext(MainPanelContext);
+    let { currentView, setHistoryCities, historyCities, units, searchCity, login, setLogin, typePanel, loading, setLoading, showWeather, setShowWeather, position, setPosition, weatherData, setWeatherData, selectCity, setSelectCity, setTypePanel, selectCities, setSelectCities, fetchCities, setFetchCities } = useContext(MainPanelContext);
 
     const [info, setInfo] = useState(false);
     const [forecast, setForecast] = useState(false);
     const [forecastH, setForecastH] = useState(false);
 
+    // useffect para limpiar al cambiar entre paneles porque si no se cruzan los datos
+    useEffect(() => {
+        setWeatherData(null);
+        setForecast(false);
+        setForecastH(false);
+        setSelectCity(null);
+    }
+        , [currentView]);
+
     return (
         <div className="mainPanel">
-
             {(typePanel === 1 || typePanel === 2 || typePanel === 5) &&
                 <MainPanelContext.Provider
                     value={{
@@ -64,7 +72,7 @@ export default function MainPanel() {
 
                             {/* Columna derecha */}
                             <div className="right-panel">
-                                {weatherData && <Map />}
+                                {weatherData && position && <Map />}
 
                             </div>
                         </div> : (
@@ -82,7 +90,7 @@ export default function MainPanel() {
             }
 
             {typePanel === 3 && (
-                <MainPanelContext.Provider value={{ info, setInfo, units }}>
+                <MainPanelContext.Provider value={{ setForecast, setForecastH, info, setInfo, units }}>
                     <MapaComunidades />
                 </MainPanelContext.Provider>
             )}

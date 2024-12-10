@@ -19,7 +19,7 @@ export default function Navigator() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(deviceIsMobile || window.innerWidth <= 1200); // solucción para que actue como pantalla de movil cuando sea tablet y movil
 
-  const { historyCities, setHistoryCities, login, setTypePanel, theme, setTheme, units, setUnits, searchCity, setSearchCity} = useContext(NavBarContext);
+  const { setCurrentView, historyCities, setHistoryCities, login, setTypePanel, theme, setTheme, units, setUnits, searchCity, setSearchCity } = useContext(NavBarContext);
 
   const toggleTheme = () => {
     setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
@@ -33,7 +33,6 @@ export default function Navigator() {
   // useEffect para cambiar si hace mas pequeña la pantalla o si es movil
   useEffect(() => {
     const handleResize = () => {
-      console.log("Window width:", window.innerWidth);
       setIsMobile(deviceIsMobile || window.innerWidth <= 1200);
     };
     window.addEventListener("resize", handleResize);
@@ -80,6 +79,7 @@ export default function Navigator() {
                   style={{ cursor: "pointer" }}
                   onClick={() => {
                     setIsMenuOpen((prev) => !prev);
+                    setCurrentView("cityLocation");
                     setTypePanel(1);
                   }}
                 >
@@ -94,6 +94,7 @@ export default function Navigator() {
                   style={{ cursor: "pointer" }}
                   onClick={() => {
                     setIsMenuOpen((prev) => !prev);
+                    setCurrentView("favCities");
                     setTypePanel(5);
                   }}
                 >
@@ -108,6 +109,7 @@ export default function Navigator() {
                   style={{ cursor: "pointer" }}
                   onClick={() => {
                     setIsMenuOpen((prev) => !prev);
+                    setCurrentView("weatherByComunity");
                     setTypePanel(3);
                   }}
                 >
@@ -122,6 +124,7 @@ export default function Navigator() {
                   style={{ cursor: "pointer" }}
                   onClick={() => {
                     setIsMenuOpen((prev) => !prev);
+                    setCurrentView("map");
                     setTypePanel(4);
                   }}
                 >
@@ -132,53 +135,65 @@ export default function Navigator() {
           )}
         </>
       ) :
-          (<NavbarContent className="px-1" style={{ display: "flex", flexWrap: "wrap", flexGrow:"2", justifyContent: "flex-start", alignItems: "center", gap: "10px" }}>
-            <NavbarItem>
-              <Link
-                variant="solid"
-                underline="hover"
-                style={{ cursor: "pointer" }}
-                onClick={() => { setTypePanel(1); }}
-              >
-                Clima por Ubicación
-              </Link>
-            </NavbarItem>
-            <NavbarItem>
-              <Link
-                variant="solid"
-                underline="hover"
-                style={{ cursor: "pointer" }}
-                onClick={() => setTypePanel(5)}
-              >
-                Ciudades Favoritas
-              </Link>
-            </NavbarItem>
-            <NavbarItem>
-              <Link
-                variant="solid"
-                underline="hover"
-                style={{ cursor: "pointer" }}
-                onClick={() => setTypePanel(3)}
-              >
-                Tiempo por Comunidades
-              </Link>
-            </NavbarItem>
-            <NavbarItem>
-              <Link
-                underline="hover"
-                style={{ cursor: "pointer" }}
-                onClick={() => setTypePanel(4)}
-              >
-                Mapas de Pronóstico
-              </Link>
-            </NavbarItem>
-          </NavbarContent>
-          )}
+        (<NavbarContent className="px-1" style={{ display: "flex", flexWrap: "wrap", flexGrow: "2", justifyContent: "flex-start", alignItems: "center", gap: "10px" }}>
+          <NavbarItem>
+            <Link
+              variant="solid"
+              underline="hover"
+              style={{ cursor: "pointer" }}
+              onClick={() => {
+                setCurrentView("cityLocation");
+                setTypePanel(1);
+              }}
+            >
+              Clima por Ubicación
+            </Link>
+          </NavbarItem>
+          <NavbarItem>
+            <Link
+              variant="solid"
+              underline="hover"
+              style={{ cursor: "pointer" }}
+              onClick={() => {
+                setCurrentView("favCities");
+                setTypePanel(5)
+              }}
+            >
+              Ciudades Favoritas
+            </Link>
+          </NavbarItem>
+          <NavbarItem>
+            <Link
+              variant="solid"
+              underline="hover"
+              style={{ cursor: "pointer" }}
+              onClick={() => {
+                setCurrentView("weatherByComunity");
+                setTypePanel(3)
+              }}
+            >
+              Tiempo por Comunidades
+            </Link>
+          </NavbarItem>
+          <NavbarItem>
+            <Link
+              underline="hover"
+              style={{ cursor: "pointer" }}
+              onClick={() => {
+                setCurrentView("map");
+                setTypePanel(4)
+              }}
+            >
+              Mapas de Pronóstico
+            </Link>
+          </NavbarItem>
+        </NavbarContent>
+        )}
       <NavbarContent
         style={{ display: "flex", justifyContent: "end" }}
       >
         <NavbarItem>
-          <NavBarContext.Provider value={{ historyCities, setHistoryCities, login, searchCity, setSearchCity, setTypePanel }}>
+          <NavBarContext.Provider value={{ historyCities, setHistoryCities, login, searchCity, setSearchCity, setTypePanel, setCurrentView }}>
             <FormSearchCity />
           </NavBarContext.Provider>
         </NavbarItem>

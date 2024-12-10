@@ -16,9 +16,17 @@ const MapaComunidades = () => {
   const toastIdRef = useRef(null);
   const [weatherData, setWeatherData] = useState(null);
   const [loading, setLoading] = useState(false);
-  const { info, setInfo, units } = useContext(MainPanelContext);
+  const {currentView, setForecast, setForecastH, info, setInfo, units } = useContext(MainPanelContext);
   const [community, setCommunity] = useState(null);
 
+  useEffect(() => {
+    if (currentView !== "weatherByComunity") {
+      setWeatherData(null);
+      setForecast(false);
+      setForecastH(false);
+    }
+  }, [currentView]);
+  
   const handleFetch = (data, community) => {
     if (data) {
       const updatedWeatherData = DataFallback(data);

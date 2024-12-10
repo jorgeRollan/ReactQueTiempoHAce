@@ -4,7 +4,7 @@ import handleError from '../../utils/handleError';
 const fetchLogin = async (formData) => {
     try {
         const result = await postRequest(`${BASE_URL}/login`, formData, true);
-        console.log(result);
+
         return {
             success: true,
             message: 'Inicio de sesión exitoso.',

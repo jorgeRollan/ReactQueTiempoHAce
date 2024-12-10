@@ -6,7 +6,6 @@ const fetchCities = async (type, handleFunction) => {
 
     try {
         const response = await getRequest(endpoint, {}, true);
-        console.log(response)
         if (response) {
             handleFunction(response);
         }

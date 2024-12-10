@@ -7,13 +7,14 @@ import { isMobile as deviceIsMobile } from "react-device-detect";
 export default function FormSearchCity() {
     const [inputValue, setInputValue] = useState("");
     const [isMobile, setIsMobile] = useState(deviceIsMobile || window.innerWidth <= 768);
-    const { setSearchCity, setTypePanel } = useContext(NavBarContext);
+    const { setSearchCity, setTypePanel, setCurrentView } = useContext(NavBarContext);
 
     const handleSubmit = (event) => {
         event.preventDefault();
         if (inputValue.trim() !== "") {
             setSearchCity(inputValue);
             setInputValue("");
+            setCurrentView("formSeacrhCity");
             setTypePanel(2);
         }
     };

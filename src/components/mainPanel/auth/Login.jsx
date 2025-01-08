@@ -74,6 +74,7 @@ const Login = () => {
         } else {
             // Error en el inicio de sesión
             setError(result.message || 'Error al iniciar sesión.');
+            window.grecaptcha.reset()
         }
         setLoading(false);
     };

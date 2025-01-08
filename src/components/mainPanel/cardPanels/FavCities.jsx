@@ -9,11 +9,18 @@ import "./FavCities.css";
 // Componente para mostrar la información meteorológica de las ciudades favoritas del usuario contiene el select de ciudades
 export default function FavCities() {
   const [loading, setLoading] = useState(false);
-  const { units, setPosition, weatherData, setWeatherData, selectCity, setSelectCity, selectCities } = useContext(MainPanelContext);
+  const { units, setPosition, weatherData, setWeatherData, selectCity, setSelectCity, selectCities, login, setHistoryCities } = useContext(MainPanelContext);
 
   const handleFetch = (newWeatherData) => {
     setPosition({ coords: { latitude: newWeatherData.coord.lat, longitude: newWeatherData.coord.lon } });
     setWeatherData(DataFallback(newWeatherData));
+    // Si el usuario está registrado, se agrega la ciudad a la lista de ciudades visitadas
+    if (login) {
+      setHistoryCities(prevHistory => {
+        const validHistory = prevHistory || [];
+        return [{ name_city: newWeatherData.name }, ...validHistory];
+      });
+    }    
     setLoading(false);
   };
 
@@ -25,6 +32,8 @@ export default function FavCities() {
       fetchWeatherByCity(selectCity, handleFetch, units);
     }
   }, [selectCity, units]);
+
+
 
   return (
     <div style={{ display: 'flex', flexWrap: 'wrap', flexDirection: "column", justifyContent: 'flex-start', alignItems: 'flex-start', flexGrow: 2, padding: '20px' }}>

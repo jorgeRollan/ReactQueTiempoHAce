@@ -6,7 +6,7 @@ import DataFallback from "../DataFallback";
 import './CardCity.css';
 
 export default function CardCity() {
-  const { units, weatherData, searchCity, setPosition, setWeatherData, historyCities, setHistoryCities, login } = useContext(MainPanelContext);
+  const { units, weatherData, searchCity, setPosition, setWeatherData, setHistoryCities, login } = useContext(MainPanelContext);
   const [loading, setLoading] = useState(true);
 
 
@@ -27,12 +27,13 @@ export default function CardCity() {
         longitude: newWeatherData.coord.lon,
       },
     });
-
     // Si el usuario está registrado, se agrega la ciudad a la lista de ciudades visitadas
     if (login) {
-      let updatedHistory = [{ name_city: newWeatherData.name }, ...(historyCities || [])]
-      setHistoryCities(updatedHistory)
-    }
+      setHistoryCities(prevHistory => {
+        const validHistory = prevHistory || [];
+        return [{ name_city: newWeatherData.name }, ...validHistory];
+      });
+    }    
   };
 
   // Si se está buscando una ciudad, se muestra un mensaje de carga

@@ -49,6 +49,7 @@ const ShowWeather = () => {
               </Chip>
             </CardHeader>
             <Image
+              style={{"backgroundColor": "rgba(128, 128, 128, 0.3)"}}
               removeWrapper
               alt="Icono del clima"
               className="w-full h-full scale-100 object-cover"

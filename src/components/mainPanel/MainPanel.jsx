@@ -90,7 +90,7 @@ export default function MainPanel() {
             }
 
             {typePanel === 3 && (
-                <MainPanelContext.Provider value={{ setForecast, setForecastH, info, setInfo, units }}>
+                <MainPanelContext.Provider value={{ setForecast, setForecastH, info, setInfo, units, login, historyCities, setHistoryCities }}>
                     <MapaComunidades />
                 </MainPanelContext.Provider>
             )}

@@ -122,7 +122,7 @@ const WeatherChart = () => {
                       { textAlign: "center" }
                     }><strong>Día:</strong> {selectedDayData.day}</h2>
                   </Chip>
-                  <div style={{ display: "flex", justifyContent: "center" }}>
+                  <div style={{backgroundColor: "rgba(128, 128, 128, 0.3)", margin:"2px", display: "flex", justifyContent: "center" }}>
                     <img
                       src={`https://rodrigokamada.github.io/openweathermap/images/${selectedDayData.icon}_t@2x.png`}
                       alt="Icono del clima"

@@ -16,7 +16,7 @@ const MapaComunidades = () => {
   const toastIdRef = useRef(null);
   const [weatherData, setWeatherData] = useState(null);
   const [loading, setLoading] = useState(false);
-  const {currentView, setForecast, setForecastH, info, setInfo, units } = useContext(MainPanelContext);
+  const { currentView, setForecast, setForecastH, info, setInfo, units, login, setHistoryCities } = useContext(MainPanelContext);
   const [community, setCommunity] = useState(null);
 
   useEffect(() => {
@@ -26,7 +26,7 @@ const MapaComunidades = () => {
       setForecastH(false);
     }
   }, [currentView]);
-  
+
   const handleFetch = (data, community) => {
     if (data) {
       const updatedWeatherData = DataFallback(data);
@@ -34,13 +34,19 @@ const MapaComunidades = () => {
 
       const temperature = updatedWeatherData.main.temp;
       const description = updatedWeatherData.weather[0].description;
-
+      // Si el usuario está registrado, se agrega la ciudad a la lista de ciudades visitadas
+      if (login) {
+        setHistoryCities(prevHistory => {
+          const validHistory = prevHistory || []; // Asegurarse de que prevHistory no sea null
+          return [{ name_city: updatedWeatherData.name }, ...validHistory];
+        });
+      }      
       if (toastIdRef.current) {
         toast.dismiss(toastIdRef.current);
       }
       setLoading(false);
       toastIdRef.current = toast(
-        <div style={{zIndex: 2000}}>
+        <div style={{ zIndex: 2000 }}>
           <strong>{community.name} ({community.city}):</strong> {temperature}{units === "metric" ? "º" : "F"}, {description}
           <Button
             color="primary"

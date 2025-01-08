@@ -61,6 +61,7 @@ const Register = () => {
             setTypePanel(7); // Cambia al panel de inicio de sesión
         } else {
             setError(result.message);
+            window.grecaptcha.reset()
             setLoading(false);
         }
     };

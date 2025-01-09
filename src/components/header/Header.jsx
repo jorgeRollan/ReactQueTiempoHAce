@@ -26,7 +26,7 @@ export default function Header() {
     return (
         <header className="header">
             <div className="logo-title-container">
-                <img src="../favicon.ico" alt="Logo" className="logo" style={{ width: "60px", height: "60px" }} />
+                <img src="/assets/favicon-DvHCNFdO.ico" alt="Logo" className="logo" style={{ width: "60px", height: "60px" }} />
                 <h1>QueTiempoHace</h1>
             </div>
             {!loading && (

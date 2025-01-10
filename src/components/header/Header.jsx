@@ -35,7 +35,7 @@ export default function Header() {
                         <div>
                             <Chip
                                 style={{ cursor: "pointer", color: "white", marginRight: "10px" }}
-                                onPress={() => setTypePanel(10)}
+                                onClick={() => setTypePanel(10)}
                                 radius="sm"
                                 variant="flat"
                                 avatar={

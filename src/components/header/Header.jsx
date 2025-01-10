@@ -54,7 +54,7 @@ export default function Header() {
                     ) : (
                         <div style={{ display: 'flex', alignItems: "end", gap: "10px" }}>
                             <Button onClick={() => setTypePanel(6)}>Registro</Button>
-                            <Button onClick={() => setTypePanel(7)}>Login</Button>
+                            <button onClick={() => setTypePanel(7)}>Login</button>
                         </div>
                     )}
                 </div>

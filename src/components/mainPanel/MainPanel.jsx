@@ -83,8 +83,8 @@ export default function MainPanel() {
                         )}
                     <div className="button-div" style={{ display: "flex", flexWrap: "wrap", alignItems: "center", margin: "10px", gap: "5px" }}>
                         {login && weatherData && typePanel !== 5 && <SaveFavCity />}
-                        {!forecastH && weatherData && <Button color="primary" className="forecast-button" onClick={() => setForecast(!forecast)}>{!forecast ? "Tiempo próximos días" : "Cerrar"}</Button>}
-                        {!forecast && weatherData && <Button color="primary" className="forecast-button" onClick={() => setForecastH(!forecastH)}>{!forecastH ? "Tiempo próximas horas" : "Cerrar"}</Button>}
+                        {!forecastH && weatherData && <Button color="primary" className="forecast-button" onPress={() => setForecast(!forecast)}>{!forecast ? "Tiempo próximos días" : "Cerrar"}</Button>}
+                        {!forecast && weatherData && <Button color="primary" className="forecast-button" onPress={() => setForecastH(!forecastH)}>{!forecastH ? "Tiempo próximas horas" : "Cerrar"}</Button>}
                     </div>
                 </MainPanelContext.Provider>
             }

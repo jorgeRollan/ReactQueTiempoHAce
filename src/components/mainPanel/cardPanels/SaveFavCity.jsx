@@ -40,7 +40,7 @@ const SaveFavCity = () => {
     }
 
     return (
-        <Button color="secondary" onClick={() => { saveCity() }}>Guardar Ciudad en favoritas</Button>
+        <Button color="secondary" onPress={() => { saveCity() }}>Guardar Ciudad en favoritas</Button>
     )
 }
 

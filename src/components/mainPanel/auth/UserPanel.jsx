@@ -91,7 +91,7 @@ const UserPanel = () => {
         )}
         <Button
           color="error"
-          onClick={() => deleteCity()}
+          onPress={() => deleteCity()}
         >Eliminar Ciudad</Button>
         <Spacer y={5.0} />
         <Divider />

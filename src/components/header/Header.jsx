@@ -35,7 +35,7 @@ export default function Header() {
                         <div>
                             <Chip
                                 style={{ cursor: "pointer", color: "white", marginRight: "10px" }}
-                                onClick={() => setTypePanel(10)}
+                                onPress={() => setTypePanel(10)}
                                 radius="sm"
                                 variant="flat"
                                 avatar={
@@ -49,12 +49,12 @@ export default function Header() {
                             >
                                 {login.name}
                             </Chip>
-                            <Button onClick={handleLogout}>Cerrar Sesión</Button>
+                            <Button onPress={handleLogout}>Cerrar Sesión</Button>
                         </div>
                     ) : (
                         <div style={{ display: 'flex', alignItems: "end", gap: "10px" }}>
                             <Button onPress={() => setTypePanel(6)}>Registro</Button>
-                            <button onClick={() => setTypePanel(7)}>Login</button>
+                            <Button onPress={() => setTypePanel(7)}>Login</Button>
                         </div>
                     )}
                 </div>

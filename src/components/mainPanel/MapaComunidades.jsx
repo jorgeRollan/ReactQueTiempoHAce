@@ -51,7 +51,7 @@ const MapaComunidades = () => {
           <Button
             color="primary"
             className="toast-button"
-            onClick={() => setInfo(true)}
+            onPress={() => setInfo(true)}
           >
             Más info
           </Button>
@@ -111,7 +111,7 @@ const MapaComunidades = () => {
             <ShowWeather />
           </div>
           <div className="close-button-container">
-            <Button className="close-button" onClick={handleCloseWeather}>Cerrar</Button>
+            <Button className="close-button" onPress={handleCloseWeather}>Cerrar</Button>
           </div>
           {loading && <h2>Devolviendo datos del servidor...</h2>}
         </DataContext.Provider>

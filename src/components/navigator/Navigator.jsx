@@ -77,7 +77,7 @@ export default function Navigator() {
                   className="w-full"
                   size="lg"
                   style={{ cursor: "pointer" }}
-                  onClick={() => {
+                  onPress={() => {
                     setIsMenuOpen((prev) => !prev);
                     setCurrentView("cityLocation");
                     setTypePanel(1);
@@ -92,7 +92,7 @@ export default function Navigator() {
                   className="w-full"
                   size="lg"
                   style={{ cursor: "pointer" }}
-                  onClick={() => {
+                  onPress={() => {
                     setIsMenuOpen((prev) => !prev);
                     setCurrentView("favCities");
                     setTypePanel(5);
@@ -107,7 +107,7 @@ export default function Navigator() {
                   className="w-full"
                   size="lg"
                   style={{ cursor: "pointer" }}
-                  onClick={() => {
+                  onPress={() => {
                     setIsMenuOpen((prev) => !prev);
                     setCurrentView("weatherByComunity");
                     setTypePanel(3);
@@ -122,7 +122,7 @@ export default function Navigator() {
                   className="w-full"
                   size="lg"
                   style={{ cursor: "pointer" }}
-                  onClick={() => {
+                  onPress={() => {
                     setIsMenuOpen((prev) => !prev);
                     setCurrentView("map");
                     setTypePanel(4);
@@ -141,7 +141,7 @@ export default function Navigator() {
               variant="solid"
               underline="hover"
               style={{ cursor: "pointer" }}
-              onClick={() => {
+              onPress={() => {
                 setCurrentView("cityLocation");
                 setTypePanel(1);
               }}
@@ -154,7 +154,7 @@ export default function Navigator() {
               variant="solid"
               underline="hover"
               style={{ cursor: "pointer" }}
-              onClick={() => {
+              onPress={() => {
                 setCurrentView("favCities");
                 setTypePanel(5)
               }}
@@ -167,7 +167,7 @@ export default function Navigator() {
               variant="solid"
               underline="hover"
               style={{ cursor: "pointer" }}
-              onClick={() => {
+              onPress={() => {
                 setCurrentView("weatherByComunity");
                 setTypePanel(3)
               }}
@@ -179,7 +179,7 @@ export default function Navigator() {
             <Link
               underline="hover"
               style={{ cursor: "pointer" }}
-              onClick={() => {
+              onPress={() => {
                 setCurrentView("map");
                 setTypePanel(4)
               }}

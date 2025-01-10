@@ -47,7 +47,7 @@ const CountrySearch = ({ onSelectCountry }) => {
           <ListboxItem
             key={index}
             textValue={country.name}
-            onClick={() => handleSelectCountry(country)}
+            onPress={() => handleSelectCountry(country)}
           >
             {`${country.nombre}  -  ${country.name}`}
           </ListboxItem>

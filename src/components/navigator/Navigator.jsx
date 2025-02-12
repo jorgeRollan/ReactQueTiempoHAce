@@ -228,10 +228,9 @@ export default function Navigator() {
               cursor: "pointer",
               width: isMobile ? "45px" : "fit-content"
             }}
-          >
-            {twemoji.parse(theme === "light" ? "🌙" : "☀️")}
+            dangerouslySetInnerHTML={{ __html: twemoji.parse(theme === "light" ? "🌙" : "☀️") }}
 
-          </button>
+          />
         </NavbarItem>
       </NavbarContent>
     </Navbar>

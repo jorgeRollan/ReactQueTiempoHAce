@@ -1,3 +1,5 @@
+import twemoji from 'twemoji';
+
 import { useState, useEffect, useContext } from "react";
 import { isMobile as deviceIsMobile } from "react-device-detect";
 import { NavBarContext } from "../../context/Contexts";
@@ -227,8 +229,7 @@ export default function Navigator() {
               width: isMobile ? "45px" : "fit-content"
             }}
           >
-            {theme === "light" ? "🌙" : "☀️"}
-            {theme === "light" ? "🌑" : "☀️"}
+            {twemoji.parse(theme === "light" ? "🌙" : "☀️")}
 
           </button>
         </NavbarItem>

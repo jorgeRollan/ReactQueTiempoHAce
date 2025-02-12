@@ -228,6 +228,8 @@ export default function Navigator() {
             }}
           >
             {theme === "light" ? "🌙" : "☀️"}
+            {theme === "light" ? "🌑" : "☀️"}
+
           </button>
         </NavbarItem>
       </NavbarContent>
